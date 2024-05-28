@@ -17,11 +17,6 @@
 CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
-# JWT
-#--------------------------------------------------------------------
-JWT_SECRET = 'JWT SECRET KEY SAMPLE HERE'
-
-#--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
@@ -98,3 +93,12 @@ database.default.DBDriver = MySQLi
 #  honeypot.label = 'Fill This Field'
 #  honeypot.name = 'honeypot'
 #  honeypot.template = '<label>{label}</label><input type="text" name="{name}" value=""/>'
+
+#--------------------------------------------------------------------
+# JWT
+#--------------------------------------------------------------------
+
+#JWT_SECRET_KEY key is the secret key used by the application to sign JWTS. Pick a stronger one for production.
+JWT_SECRET = 'JWT SECRET KEY SAMPLE HERE'
+#JWT_TIME_TO_LIVE indicates the validity period of a signed JWT (in milliseconds)
+JWT_TIME_TO_LIVE=3600
