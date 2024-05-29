@@ -46,4 +46,14 @@ class CandidatoVagasModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getCandidatosPorVaga($vagaId)
+    {
+        return $this->db->table($this->table)
+            ->join('users', 'users.id = candidato_vagas.id_usuario')
+            ->where('candidato_vagas.id_vaga', $vagaId)
+            ->select('users.username')
+            ->get()
+            ->getResult();
+    }
 }
