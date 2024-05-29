@@ -81,7 +81,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="salario">Salário:</label>
-                <input type="text" class="form-control" id="salario" name="salario" value="<?= isset($vaga) ? $vaga->salario : ''; ?>" required>
+                <input type="text" class="form-control moeda" id="salario" name="salario" value="<?= isset($vaga) ? $vaga->salario : ''; ?>" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="tipo">Tipo de Contratação:</label>

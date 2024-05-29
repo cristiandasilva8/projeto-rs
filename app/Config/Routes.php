@@ -55,9 +55,11 @@ $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
 
     // Imobiliaria imóveis
     $routes->get('imovel/listar', 'Admin\AdminImoveisController::listarImovel', ['as' => 'admin.imovel.listar']);
+    
     $routes->match(['get', 'post'], 'imovel/add', 'Admin\AdminImoveisController::cadastrarImovel', ['as' => 'admin.imovel.add']);
     $routes->match(['get', 'post'], 'imovel/edit/(:num)', 'Admin\AdminImoveisController::editarImovel/$1', ['as' => 'admin.imovel.edit']);    
     $routes->match(['get', 'post'], 'imovel/uploadImages/(:num)', 'Admin\AdminImoveisController::uploadImages/$1', ['as' => 'admin.imovel.uploadImages']);
+    $routes->delete('imovel/deleteImage/(:num)', 'Admin\AdminImoveisController::deleteImage/$1', ['as' => 'admin.imovel.deleteImage']);
 
 
 

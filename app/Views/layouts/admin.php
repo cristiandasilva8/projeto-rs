@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="<?= base_url('/assets/admin/plugins/summernote/summernote-bs4.min.css') ?>">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="<?= base_url('/assets/admin/plugins/dropzone/min/dropzone.min.css') ?>">
+
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -246,7 +247,6 @@
     <!-- dropzonejs -->
     <script src="<?= base_url('/assets/admin/plugins/dropzone/min/dropzone.min.js') ?>"></script>
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
@@ -258,7 +258,7 @@
             // Aplicar máscara de CEP
             $('#cep').mask('00000-000');
             // Aplicar máscara de Salário
-            $('#salario').mask('#.##0,00', {
+            $('.moeda').mask('#.##0,00', {
                 reverse: true
             });
             // Função para preencher endereço ao digitar o CEP
@@ -267,6 +267,8 @@
                 $('#cidade').val("");
                 $('#estado').val("");
                 $('#localizacao').val("");
+                $('#latitude').val("");
+                $('#longitude').val("");
 
                 // Consulta o webservice viacep.com.br
                 $.getJSON("https://viacep.com.br/ws/" + cep + "/json/", function(dados) {
@@ -275,9 +277,30 @@
                         $('#cidade').val(dados.localidade);
                         $('#estado').val(dados.uf);
                         $('#localizacao').val(dados.logradouro);
+
+                        // Combina o endereço completo
+                        var enderecoCompleto = dados.logradouro + ", " + dados.localidade + ", " + dados.uf + ", Brasil";
+
+                        // Consulta a API de geocodificação do Google para obter latitude e longitude
+                        obterCoordenadas(enderecoCompleto);
                     } else {
                         // CEP pesquisado não foi encontrado.
                         alert("CEP não encontrado.");
+                    }
+                });
+            }
+
+            function obterCoordenadas(endereco) {
+                var apiKey = 'AIzaSyDL4HdV6ycjjj_Vo2JSe9Daei4J6uQNNM4'; // Substitua pela sua chave de API do Google
+                var url = "https://maps.googleapis.com/maps/api/geocode/json?address=" + encodeURIComponent(endereco) + "&key=" + apiKey;
+
+                $.getJSON(url, function(data) {
+                    if (data.status === 'OK') {
+                        var location = data.results[0].geometry.location;
+                        $('#latitude').val(location.lat);
+                        $('#longitude').val(location.lng);
+                    } else {
+                        alert("Não foi possível obter as coordenadas.");
                     }
                 });
             }

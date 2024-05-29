@@ -14,7 +14,7 @@ class ImageService
         // Validação do arquivo
         if ($file->isValid() && !$file->hasMoved()) {
             // Verificar tipo de arquivo
-            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg'];
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
             if (!in_array($file->getMimeType(), $allowedTypes)) {
                 throw new \RuntimeException('Tipo de arquivo não suportado. Somente PNG, JPEG e JPG são permitidos.');
             }

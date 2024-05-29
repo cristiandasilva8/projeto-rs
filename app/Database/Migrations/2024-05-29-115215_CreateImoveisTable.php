@@ -58,12 +58,11 @@ class CreateImoveisTable extends Migration
                 'type'       => 'DOUBLE',
             ],
             'caracteristicas' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'TEXT',
             ],
             'status' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'CHAR',
+                'constraint' => '1',
             ],
             'tipo' => [
                 'type'       => 'VARCHAR',

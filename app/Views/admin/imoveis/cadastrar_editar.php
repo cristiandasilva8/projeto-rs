@@ -16,6 +16,9 @@
 <?php
 $formAction = isset($imovel) ? url_to('admin.imovel.edit', $imovel->id) : url_to('admin.imovel.add');
 $formMethod = 'POST'; // You can adjust if you have different methods for add or update
+$uploadUrl = isset($uploadUrl) ? $uploadUrl : '';
+$deleteUploadUrl = isset($deleteUploadUrl) ? $deleteUploadUrl : '';
+$imagens = isset($imagens) ? $imagens : [];
 ?>
 
 <div class="mt-5">
@@ -38,19 +41,25 @@ $formMethod = 'POST'; // You can adjust if you have different methods for add or
         <?php else : ?>
             <input type="hidden" name="id_empresa" value="<?= session()->get('id') ?>">
         <?php endif; ?>
+        
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="foto_destaque">Foto Destaque</label>
-                <input type="file" class="form-control" id="foto_destaque" name="foto_destaque" multiple>
+                <?php if (isset($imovel) && !empty($imovel->foto_destaque)): ?>
+                    <div>
+                        <img src="<?= base_url($imovel->foto_destaque) ?>" alt="Foto Destaque" style="max-width: 150px; max-height: 150px;">
+                    </div>
+                <?php endif; ?>
+                <input type="file" class="form-control" id="foto_destaque" name="foto_destaque">
             </div>
 
             <div class="form-group col-md-6">
-                <label for="preco">Descrição</label>
+                <label for="descricao">Descrição</label>
                 <input type="text" class="form-control" id="descricao" name="descricao" value="<?= isset($imovel) ? $imovel->descricao : ''; ?>" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="preco">Preço</label>
-                <input type="text" class="form-control" id="preco" name="preco" value="<?= isset($imovel) ? $imovel->preco : ''; ?>" required>
+                <input type="text" class="form-control moeda" id="preco" name="preco" value="<?= isset($imovel) ? $imovel->preco : ''; ?>" required>
             </div>
             <div class="form-group col-md-6">
                 <label for="logradouro">Logradouro</label>
@@ -70,29 +79,37 @@ $formMethod = 'POST'; // You can adjust if you have different methods for add or
             </div>
             <div class="form-group col-md-2">
                 <label for="uf">UF</label>
-                <input type="text" class="form-control" id="uf" name="uf" value="<?= isset($imovel) ? $imovel->uf : ''; ?>" required>
+                <input type="text" class="form-control" id="estado" name="uf" value="<?= isset($imovel) ? $imovel->uf : ''; ?>" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="cep">CEP</label>
                 <input type="text" class="form-control" id="cep" name="cep" value="<?= isset($imovel) ? $imovel->cep : ''; ?>" required>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <label for="latitude">Latitude</label>
                 <input type="text" class="form-control" id="latitude" name="latitude" value="<?= isset($imovel) ? $imovel->latitude : ''; ?>" required>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <label for="longitude">Longitude</label>
                 <input type="text" class="form-control" id="longitude" name="longitude" value="<?= isset($imovel) ? $imovel->longitude : ''; ?>" required>
             </div>
             <div class="form-group col-md-12">
                 <label for="caracteristicas">Características</label>
-                <input type="text" class="form-control" id="caracteristicas" name="caracteristicas" value="<?= isset($imovel) ? $imovel->caracteristicas : ''; ?>" required>
+                <textarea class="form-control" id="summernote" name="caracteristicas" rows="3" required><?= isset($imovel) ? $imovel->caracteristicas : ''; ?></textarea>
             </div>
             <div class="form-group col-md-6">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" name="status" value="<?= isset($imovel) ? $imovel->status : ''; ?>" required>
+                <select class="form-control" id="status" name="status" required>
+                    <option value="0" <?= isset($imovel) && $imovel->status == '0' ? 'selected' : '' ?>>Desativado</option>
+                    <option value="1" <?= isset($imovel) && $imovel->status == '1' ? 'selected' : '' ?>>Ativo</option>
+                </select>
             </div>
-            <div class="form-group col-md-12" id="imagens-dropzone" data-upload-url="<?= $uploadUrl ?>" data-delete-upload-url=<?= $deleteUploadUrl ?> data-imagens='<?= json_encode($imagens) ?>'></div>
+            
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-primary"><?= isset($imovel) ? 'Atualizar' : 'Cadastrar'; ?></button>
+            </div>
+            
+            <div class="form-group col-md-12 mt-6" id="imagens-dropzone" data-upload-url="<?= $uploadUrl ?>" data-delete-upload-url=<?= $deleteUploadUrl ?> data-imagens='<?= json_encode($imagens) ?>'></div>
             <?php if (isset($imovel)) : ?>
             <div class="card-body">
                 <div id="actions" class="row">
@@ -100,15 +117,15 @@ $formMethod = 'POST'; // You can adjust if you have different methods for add or
                         <div class="btn-group w-100">
                             <span class="btn btn-success col fileinput-button">
                                 <i class="fas fa-plus"></i>
-                                <span>Add files</span>
+                                <span>Add Imagens</span>
                             </span>
-                            <button type="submit" class="btn btn-primary col start">
+                            <button type="button" class="btn btn-primary col start">
                                 <i class="fas fa-upload"></i>
-                                <span>Start upload</span>
+                                <span>Carregar imagens</span>
                             </button>
                             <button type="reset" class="btn btn-warning col cancel">
                                 <i class="fas fa-times-circle"></i>
-                                <span>Cancel upload</span>
+                                <span>Cancelar</span>
                             </button>
                         </div>
                     </div>
@@ -141,29 +158,20 @@ $formMethod = 'POST'; // You can adjust if you have different methods for add or
                             <div class="btn-group">
                                 <button class="btn btn-primary start">
                                     <i class="fas fa-upload"></i>
-                                    <span>Start</span>
-                                </button>
-                                <button data-dz-remove class="btn btn-warning cancel">
-                                    <i class="fas fa-times-circle"></i>
-                                    <span>Cancel</span>
+                                    <span>Carregar</span>
                                 </button>
                                 <button data-dz-remove class="btn btn-danger delete">
                                     <i class="fas fa-trash"></i>
-                                    <span>Delete</span>
+                                    <span>Excluir</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        <?php endif; ?>
-
-
+            <?php endif; ?>
         </div>
-        <button type="submit" class="btn btn-primary"><?= isset($imovel) ? 'Atualizar' : 'Cadastrar'; ?></button>
     </form>
 </div>
-
-
 
 <?= $this->endsection(); ?>

@@ -50,13 +50,15 @@ class AdminImoveisController extends BaseController
             if (!$imovelModel->insertImovel($imovel)) {
                 return redirect()->back()->with('error', 'Não Foi possível cadastrat a vaga.')->withInput();
             }
-
-            return redirect()->to(base_url('admin/imoveis/listar'))->with('success', 'Vaga cadastrada com sucesso!.');
+            return redirect()->back()->with('success', 'Imóvel cadastrada com sucesso!');
         }
 
         $dados = [
             'empresas' => $adminModel->where('id_grupo', 3)->findAll(),
-            'title' => 'Cadastrar Imóvel'
+            'title' => 'Cadastrar imóvel',
+            'jsFiles' => [
+                base_url('assets/admin/js/imoveis.js')
+            ]
         ];
 
         return view('admin/imoveis/cadastrar_editar', $dados);
@@ -76,14 +78,25 @@ class AdminImoveisController extends BaseController
 
         if ($this->request->getMethod() === 'POST') {
             // Processar os dados do formulário
-            $data = $this->request->getGetPost();
-
+            $data = $this->request->getPost();
+    
+            // Tratamento da foto destaque
+            $imgCarregada = $this->upload();
+            if ($imgCarregada != '') {
+                // Verifica se existe uma imagem carregada e faz o unlink
+                if (!empty($imovel->foto_destaque) && file_exists(ROOTPATH . 'public' . $imovel->foto_destaque)) {
+                    unlink(ROOTPATH . 'public' . $imovel->foto_destaque);
+                }
+                $data['foto_destaque'] = $imgCarregada;
+            }
+    
             if ($imoveisModel->update($id, $data)) {
-                return redirect()->to('/admin/vagas/listar')->with('success', 'Vaga atualizada com sucesso.');
+                return redirect()->back()->with('success', 'Imóvel atualizado com sucesso.');
             } else {
-                return redirect()->back()->with('error', 'Erro ao tentar atualizar a vaga.');
+                return redirect()->back()->with('error', 'Erro ao tentar atualizar o imóvel.');
             }
         }
+
         $imovelImagem = $imovelImagemModel->where('id_imovel', $id)->findAll();
   
         // Mostrar o formulário com os dados existentes
@@ -114,14 +127,14 @@ class AdminImoveisController extends BaseController
             $imagePath = $this->imageService->uploadAndResizeImage($imagem, "uploads/imoveis/galeria/$imovelId", 500, 500, 5242880); // 5MB
             $imovelImagemData = [
                 'id_imovel' => $imovelId,
-                'caminho_imagem' => '/uploads/imoveis/' . $imagem->getName(),
+                'caminho_imagem' => $imagePath,
             ];
             $imovelImagemModel->save($imovelImagemData);
         } else {
             return $this->response->setJSON(['error' => 'Cada imagem deve ser menor que 5MB.']);
         }
 
-        return $this->response->setJSON(['success' => true]);
+        return $this->response->setJSON(['success' => true, 'id' => $imovelImagemModel->getInsertID()]);
     }
 
     public function deleteImage($id)
