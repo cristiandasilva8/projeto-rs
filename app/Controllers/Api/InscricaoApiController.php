@@ -46,25 +46,25 @@ class InscricaoApiController extends ResourceController
         $vaga = $this->_vagaModel->find($idVaga);
 
         
-        // if(empty($usuario))
-        //     return $this->failNotFound("Usuário não encontrado: $idUsuario");
+        if(empty($usuario))
+            return $this->failNotFound("Usuário não encontrado: $idUsuario");
 
-        // if(empty($vaga))
-        //     return $this->failNotFound("Vaga não encontrado: $idVaga");        
+        if(empty($vaga))
+            return $this->failNotFound("Vaga não encontrado: $idVaga");        
 
         $dados = ['id_usuario' => $idUsuario, 'id_vaga' => $idVaga, 'deleted_at' => null];                
          
-        // $jaSeCandidatou = $this->_candidatoVagaModel->where($dados)->findAll();       
+        $jaSeCandidatou = $this->_candidatoVagaModel->where($dados)->findAll();       
 
-        // if(! empty($jaSeCandidatou))
-        //     return $this->failResourceExists("Candidato já cadastrado para essa vaga!");
+        if(! empty($jaSeCandidatou))
+            return $this->failResourceExists("Candidato já cadastrado para essa vaga!");
 
-        // if(! $this->_candidatoVagaModel->save($dados))
-        //     return $this->failServerError("Algum erro interno aconteceu no servidor ". implode(',' , $dados));
+        if(! $this->_candidatoVagaModel->save($dados))
+            return $this->failServerError("Algum erro interno aconteceu no servidor ". implode(',' , $dados));
 
         unset($dados['deleted_at']);
 
-        Events::trigger('email', "", "", "", "");
+        Events::trigger('email', "teste@teste.com", "", "", "");
 
         return $this->respondCreated($dados, "Candidato inscrito na vaga");        
     }   
