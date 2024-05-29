@@ -11,6 +11,20 @@ use CodeIgniter\HTTP\ResponseInterface;
 class VagasController extends BaseController
 {
 
+    public function listarVagas()
+    {
+        $vagaModel = new VagasModel();
+        $data = $vagaModel->getVagasComCandidatos();
+
+        return $this->response->setJSON([
+            "draw" => intval($this->request->getPost('draw')),
+            "recordsTotal" => count($data),
+            "recordsFiltered" => count($data),
+            "data" => $data
+        ]);
+    }
+
+
     public function detalhes($id)
     {
         $vaga = new VagasModel();
@@ -45,7 +59,7 @@ class VagasController extends BaseController
         $candidatar->save((object)$data);
 
 
-         // Configura o serviço de e-mail
+        // Configura o serviço de e-mail
         // $email = \Config\Services::email();
 
         // $email->setFrom('seu-email@example.com', 'Nome do Site');

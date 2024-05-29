@@ -20,10 +20,13 @@ class VagasModel extends Model
         'quantidade_limite',
         'requisitos',
         'salario',
-        'tipo',
-        'categoria',
         'descricao',
         'outros_beneficios',
+        'tipo',
+        'id_categoria',
+        'cep',
+        'cidade',
+        'estado',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -55,4 +58,39 @@ class VagasModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function insertVaga($data)
+    {
+        $data = (object)$data;
+        return $this->insert($data);
+    }
+    public function getVagasComCandidatos()
+    {
+        return $this->db->table('vagas')
+            ->select('vagas.*, COUNT(candidato_vagas.id_usuario) as num_candidatos')
+            ->join('candidato_vagas', 'vagas.id = candidato_vagas.id_vaga', 'left')
+            ->where('vagas.deleted_at', null)  // Adiciona condição para incluir apenas registros não excluídos
+            ->groupBy('vagas.id')
+            ->get()
+            ->getResultArray();
+    }
+
+    /**
+     * Conta os registros que correspondem ao termo de busca em várias colunas.
+     *
+     * @param string $search Termo de busca.
+     * @return int Número de registros filtrados.
+     */
+    public function getCountLike($search)
+    {
+        return $this->table($this->table)
+            ->select('id')
+            ->groupStart()
+            ->like('nome', $search)
+            ->orLike('localizacao', $search)
+            ->orLike('setor', $search)
+            ->orLike('descricao', $search)
+            ->groupEnd()
+            ->countAllResults();
+    }
 }

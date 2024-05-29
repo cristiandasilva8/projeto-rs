@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CandidatoVagasModel extends Model
+class ImovelImagemModel extends Model
 {
-    protected $table            = 'candidato_vagas';
+    protected $table            = 'imoveis_imagens';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_usuario',
-        'id_vaga'
+        'id_imovel',
+        'caminho_imagem',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -46,14 +46,4 @@ class CandidatoVagasModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    public function getCandidatosPorVaga($vagaId)
-    {
-        return $this->db->table($this->table)
-            ->join('users', 'users.id = candidato_vagas.id_usuario')
-            ->where('candidato_vagas.id_vaga', $vagaId)
-            ->select('users.username')
-            ->get()
-            ->getResult();
-    }
 }

@@ -24,6 +24,7 @@ class AdminModel extends Model
         'id_grupo',
         'codigo_verificacao',
         'verificado',
+        'imagem',
     ];
 
     protected bool $allowEmptyInserts = false;

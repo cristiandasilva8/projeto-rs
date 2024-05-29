@@ -20,6 +20,11 @@ class CreateAdminUsuarios extends Migration
                 'constraint' => '100',
                 'null' => false
             ],
+            'imagem' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => false
+            ],
             'email' => [
                 'type' => 'VARCHAR',
                 'constraint' => '100',

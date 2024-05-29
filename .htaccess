@@ -1,5 +1,6 @@
 RewriteEngine on
-RewriteCond $1 !^public/(index\.php|images|assets|css|js|robots\.txt|favicon\.ico)
+# Exclua a pasta uploads da regra de reescrita
+RewriteCond $1 !^(public/(index\.php|images|assets|css|js|robots\.txt|favicon\.ico)|uploads/)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule (.*) public/index.php/$1 [L]
+RewriteRule ^(.*)$ public/index.php/$1 [L]

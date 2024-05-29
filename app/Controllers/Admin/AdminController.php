@@ -6,11 +6,15 @@ use App\Controllers\BaseController;
 use App\Models\Admin\AdminModel;
 use App\Models\Admin\GrupoUsuarioModel;
 use App\Models\AuthIdentitiesModel;
-use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Shield\Models\UserModel;
+use App\Models\CandidatoVagasModel;
+
+use App\Services\ImageService;
+
 
 class AdminController extends BaseController
 {
+   
+
     protected $configEmail;
     protected $email;
     public function __construct()
@@ -153,6 +157,7 @@ class AdminController extends BaseController
                 $dados_sessao = [
                     'id' => $data->id,
                     'nome_usuario' => $data->nome,
+                    'grupo' => $data->id_grupo,
                     'email' => $data->email,
                     'isLoggedIn' => TRUE,
                     'isVerified' => ($data->verificado == 1) ? TRUE : FALSE,
@@ -173,7 +178,6 @@ class AdminController extends BaseController
             return redirect()->to(base_url('admin/login'))->with('error', 'E-mail não existe na base de dados');
         }
     }
-
 
     public function recuperarSenha()
     {
@@ -203,7 +207,7 @@ class AdminController extends BaseController
                 return redirect()->back()->with('error', 'Nenhum usuário encontrado com esse email.');
             }
 
-             // Verifica se o email foi enviado com sucesso
+            // Verifica se o email foi enviado com sucesso
             if ($emailEnviado) {
                 // E-mail enviado com sucesso
                 return redirect()->to(base_url('admin/login'))->with('success', 'Uma nova senha foi enviada para o seu email.');
@@ -215,6 +219,85 @@ class AdminController extends BaseController
 
 
         return view('admin/recuperar_senha');
+    }
+
+    
+
+    public function candidatos($vagaId)
+    {
+        $model = new CandidatoVagasModel();
+        $candidatos = $model->getCandidatosPorVaga($vagaId);
+
+        if (empty($candidatos)) {
+            return $this->response->setJSON([]);  // Retorna um array vazio se não houver candidatos
+        }
+
+        return $this->response->setJSON($candidatos);
+    }
+
+    
+    public function perfil()
+    {
+        $session = session();
+        $userModel = new AdminModel();
+
+        // Checa se a requisição é POST para processar a atualização do perfil
+        if ($this->request->getMethod() === 'POST') {
+
+            // Coleta dados do formulário, exceto a senha
+            $data = [
+                'name' => $this->request->getPost('name'),
+                'email' => $this->request->getPost('email'),
+                'endereco_completo' => $this->request->getPost('endereco_completo'),
+                'telefone' => $this->request->getPost('telefone'),
+                'celular' => $this->request->getPost('celular'),
+                'cpf_cnpj' => $this->request->getPost('cpf_cnpj'),
+                'creci' => ($this->request->getPost('creci')) ? $this->request->getPost('creci') : NULL,
+            ];
+
+            // Processamento de upload de imagem
+            $imgCarregada = $this->upload();
+            if($imgCarregada != ''){
+                $data['imagem'] = $imgCarregada;
+            }
+                
+            // Adiciona a senha ao array de dados apenas se ela for fornecida
+            $password = $this->request->getPost('password');
+            if (!empty($password)) {
+                $data['senha'] = password_hash($password, PASSWORD_DEFAULT);
+            }
+
+            if (!empty($password)) {
+                $validationRules['senha'] = 'required|min_length[8]';
+            }
+
+            $id = $session->get('id'); // Supõe-se que o ID do usuário está armazenado na sessão
+            if ($userModel->update($id, $data)) {
+                return redirect()->to('admin/usuario/perfil')->with('success', 'Perfil atualizado com sucesso.');
+            } else {
+                return redirect()->to('admin/usuario/perfil')->with('error', 'Erro ao atualizar o perfil.');
+            }
+        }
+
+        // Se não for POST, renderiza o formulário com dados do usuário atual
+        $userData = $userModel->find($session->get('id'));
+
+        return view('admin/usuarios/perfil', ['userData' => $userData]);
+    }
+
+    private function upload()
+    {
+        $imageService = new ImageService();
+        $img = $this->request->getFile('imagem');
+
+        try {
+            $imagePath = $imageService->uploadAndResizeImage($img);
+            // Salve o caminho da imagem no banco de dados ou faça outras operações necessárias
+            // $data['imagem'] = $imagePath;
+            return $imagePath;
+        } catch (\RuntimeException $e) {
+            return $this->response->setStatusCode(400, $e->getMessage());
+        }
     }
 
     private function gerarSenhaAleatoria($length = 8)
