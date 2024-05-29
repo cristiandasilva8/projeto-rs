@@ -13,24 +13,6 @@ class ImoveisApiController extends ResourceController
 
     public function __construct() {
         $this->_imoviesModel = Factories::models(Model::class);
-    }
-
-    public function index()
-    {
-        return $this->respond($this->_imoviesModel->findAll(), 200);
-    }
-
-    public function show($id = null)
-    {
-        
-        if(empty($id) || !is_numeric($id)) 
-            return $this->failNotFound("Não foi encontrado esse recurso de acesso");
-        
-        $dados = $this->_imoviesModel->find($id);
-
-        if(empty($dados)) 
-            return $this->failNotFound("Não foi encontrado esse recurso de acesso");        
-
-        return $this->respond($dados, 200);
-    }
+    }   
+    
 }
