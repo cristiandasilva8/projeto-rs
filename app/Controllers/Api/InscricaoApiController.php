@@ -42,7 +42,7 @@ class InscricaoApiController extends ResourceController
         $usuario = $this->_usuarioModel->find($idUsuario);
         $vaga = $this->_vagaModel->find($idVaga);
 
-
+        
         if(empty($usuario))
             return $this->failNotFound("Usuário não encontrado: $idUsuario");
 
