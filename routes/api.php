@@ -1,10 +1,12 @@
 <?php
 
-$routes->group('api', ['namespace' => 'App\Controllers\Api'], static function ($routes) {
+$routes->group('api', [], static function ($routes) {
 
-    $routes->group('v1',[], static function ($routes){
+    $routes->group('v1',['namespace' => 'App\Controllers\Api'], static function ($routes){
         $routes->get('/', 'VagasApiController::index', ['as' => 'api']);
         $routes->resource('vagas', ['controller' => '\App\Controllers\Api\VagasApiController', 'only' => ['index', 'show']]);
+        $routes->resource('imoveis', ['controller' => '\App\Controllers\Api\ImoviesApiController', 'only' => ['index', 'show']]);
+        $routes->resource('candidatos', ['controller' => '\App\Controllers\Api\CandidatosApiController', 'only' => ['index', 'show']]);
     });
         
 });

@@ -2,29 +2,31 @@
 
 namespace App\Controllers\Api;
 
-use App\Models\VagasModel;
 use CodeIgniter\Config\Factories;
+use CodeIgniter\Model;
 use CodeIgniter\RESTful\ResourceController;
 
-class VagasApiController extends ResourceController {
-    
-    private $_vagasModel;
+
+class ImoveisApiController extends ResourceController 
+{
+    private $_imoviesModel;
 
     public function __construct() {
-        $this->_vagasModel = Factories::models(VagasModel::class);
+        $this->_imoviesModel = Factories::models(Model::class);
     }
+
     public function index()
-    {        
-        return $this->respond($this->_vagasModel->findAll(), 200);
+    {
+        return $this->respond($this->_imoviesModel->findAll(), 200);
     }
-    
+
     public function show($id = null)
     {
         
         if(empty($id) || !is_numeric($id)) 
             return $this->failNotFound("Não foi encontrado esse recurso de acesso");
         
-        $dados = $this->_vagasModel->find($id);
+        $dados = $this->_imoviesModel->find($id);
 
         if(empty($dados)) 
             return $this->failNotFound("Não foi encontrado esse recurso de acesso");        
