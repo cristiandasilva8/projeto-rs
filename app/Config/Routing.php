@@ -30,6 +30,7 @@ class Routing extends BaseRouting
      */
     public array $routeFiles = [
         APPPATH . 'Config/Routes.php',
+        ROOTPATH . 'routes/api.php',
     ];
 
     /**
