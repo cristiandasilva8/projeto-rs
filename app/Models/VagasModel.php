@@ -64,6 +64,7 @@ class VagasModel extends Model
         $data = (object)$data;
         return $this->insert($data);
     }
+    
     public function getVagasComCandidatos()
     {
         return $this->db->table('vagas')

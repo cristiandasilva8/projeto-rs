@@ -16,7 +16,7 @@ $(document).ready(function() {
             "url": "https://cdn.datatables.net/plug-ins/1.10.22/i18n/Portuguese-Brasil.json"
         },
         "ajax": {
-            "url": `${BASE_URL}/vagas/listar`, // URL de onde os dados devem ser puxados
+            "url": `${BASE_URL}vagas/listar`, // URL de onde os dados devem ser puxados
             "type": "POST"
         },
         "columns": [
@@ -24,7 +24,15 @@ $(document).ready(function() {
             { "data": "localizacao" },
             { "data": "setor" },
             { "data": "quantidade_limite" },
-            { "data": "salario" },
+            {
+                "data": "salario",
+                "render": function (data, type, row) {
+                  return parseFloat(data).toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  });
+                },
+              },
             { "data": "descricao" },
             { "data": "tipo" },
             {

@@ -7,8 +7,7 @@ use App\Models\CategoriasModel;
 use App\Models\VagasModel;
 use App\Controllers\BaseController;
 use CodeIgniter\API\ResponseTrait;
-use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\Shield\Models\UserModel;
+
 
 class AdminVagasController extends BaseController
 {

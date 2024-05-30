@@ -22,6 +22,7 @@ class ImoveisModel extends Model
         'cidade',
         'uf',
         'cep',
+        'tipo',
         'latitude',
         'longitude',
         'caracteristicas',
@@ -63,5 +64,16 @@ class ImoveisModel extends Model
     {
         $data = (object)$data;
         return $this->insert($data);
+    }
+
+    public function getImoveis()
+    {
+        return $this->db->table('imoveis')
+            ->select('imoveis.id, imoveis.descricao, imoveis.preco, imoveis.tipo, admin_usuarios.nome as empresa, imoveis.status')
+            ->join('admin_usuarios', 'admin_usuarios.id = imoveis.id_empresa')
+            ->where('admin_usuarios.id_grupo', 3)
+            ->where('imoveis.deleted_at', null)
+            ->get()
+            ->getResultArray();
     }
 }

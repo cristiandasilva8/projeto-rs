@@ -20,6 +20,14 @@ $routes->group('vagas', function ($routes) {
     $routes->match(['get', 'post'], 'procurar-vagas', 'vagas\VagasController::procurarVagas', ['as' => 'procurar.vagas']);
 });
 
+$routes->group('imoveis', function ($routes) {
+    // Imoveis
+    $routes->get('detalhes/(:num)', 'imoveis\ImoveisController::detalhes/$1', ['as' => 'imovel.detalhes']);
+    $routes->post('listar', 'imoveis\ImoveisController::listarImoveis', ['as' => 'imovel.listar']);
+    // Procurar Imoveis
+    $routes->match(['get', 'post'], 'procurar-imoveis', 'imoveis\ImoveisController::procurarImoveis', ['as' => 'procurar.imoveis']);
+});
+
 $routes->group('usuario', function ($routes) {
     // trabalhador
     $routes->get('perfil', 'usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
@@ -54,13 +62,11 @@ $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
     $routes->get('vagas/candidatos/(:num)', 'Admin\AdminVagasController::candidatos/$1', ['as' => 'vagas.candidatos']);
 
     // Imobiliaria imóveis
-    $routes->get('imovel/listar', 'Admin\AdminImoveisController::listarImovel', ['as' => 'admin.imovel.listar']);
-    
     $routes->match(['get', 'post'], 'imovel/add', 'Admin\AdminImoveisController::cadastrarImovel', ['as' => 'admin.imovel.add']);
     $routes->match(['get', 'post'], 'imovel/edit/(:num)', 'Admin\AdminImoveisController::editarImovel/$1', ['as' => 'admin.imovel.edit']);    
     $routes->match(['get', 'post'], 'imovel/uploadImages/(:num)', 'Admin\AdminImoveisController::uploadImages/$1', ['as' => 'admin.imovel.uploadImages']);
     $routes->delete('imovel/deleteImage/(:num)', 'Admin\AdminImoveisController::deleteImage/$1', ['as' => 'admin.imovel.deleteImage']);
-
-
+    $routes->delete('imovel/delete/(:num)', 'Admin\AdminImoveisController::excluirImovel/$1', ['as' => 'admin.imovel.delete']);
+    $routes->get('imovel/listar', 'Admin\AdminImoveisController::listarImoveis', ['as' => 'admin.imovel.listar']);
 
 });
