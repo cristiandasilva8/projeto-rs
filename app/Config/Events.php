@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Libraries\EmailSender;
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
 use CodeIgniter\HotReloader\HotReloader;
@@ -52,4 +53,13 @@ Events::on('pre_system', static function () {
             });
         }
     }
+});
+
+Events::on('email', static function($to, $subject, $message, $tittle){
+        (new EmailSender(
+        $to,
+        $subject,
+        $message,
+        $tittle
+    ))->sendEmail();
 });

@@ -7,7 +7,7 @@ $routes->group('api', [], static function ($routes) {
         $routes->resource('vagas', ['controller' => '\App\Controllers\Api\VagasApiController', 'only' => ['index', 'show']]);
         $routes->resource('imoveis', ['controller' => '\App\Controllers\Api\ImoviesApiController', 'only' => ['index', 'show']]);
         $routes->resource('candidatos', ['controller' => '\App\Controllers\Api\CandidatosApiController', 'only' => ['index', 'show']]);
-        $routes->resource('inscricao', ['controller' => '\App\Controllers\Api\InscricaoApiController', 'only' => ['index', 'show', 'create']]);
+        $routes->resource('inscricao', ['controller' => '\App\Controllers\Api\InscricaoApiController', 'only' => ['create']]);
     });
         
 });
