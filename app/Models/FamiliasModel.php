@@ -4,17 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class FamiliasModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = 'familias';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id',
-        'username'
+        'id_trabalhador'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -46,5 +45,4 @@ class UsuarioModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
 }

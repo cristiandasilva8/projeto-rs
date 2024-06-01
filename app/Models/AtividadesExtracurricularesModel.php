@@ -4,18 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class AtividadesExtracurricularesModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = 'atividades_extracurriculares';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'id',
-        'username'
-    ];
+    protected $allowedFields    = ['usuario_id', 'atividade', 'descricao'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -46,5 +43,4 @@ class UsuarioModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
 }

@@ -4,19 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsuarioModel extends Model
+class CertificacoesModel extends Model
 {
-    protected $table            = 'users';
+    protected $table            = 'certificacoes';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'object';
-    protected $useSoftDeletes   = true;
+    protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [
-        'id',
-        'username'
-    ];
-
+    protected $allowedFields = ['usuario_id', 'certificacao', 'instituicao', 'data_emissao', 'data_validade'];
+    
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
 
@@ -46,5 +43,4 @@ class UsuarioModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-    
 }

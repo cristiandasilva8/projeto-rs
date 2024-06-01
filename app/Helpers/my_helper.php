@@ -28,3 +28,22 @@ if (!function_exists('moeda')) {
         return number_format($numero, 2, ',', '.');
     }
 }
+
+if (!function_exists('bd2br')) {
+    function bd2br($data, $hora = FALSE)
+    {
+        if ($hora == FALSE)
+            return (empty($data)) ? NULL : implode('/', array_reverse(explode('-', $data)));
+        else
+            return (empty($data)) ? NULL : implode('/', array_reverse(explode('-', substr($data, 0, 10)))) . substr($data, 10, 10);
+    }
+}
+if (!function_exists('br2bd')) {
+    function br2bd($data, $hora = FALSE)
+    {
+        if ($hora == FALSE)
+            return (empty($data)) ? NULL : implode('-', array_reverse(explode('/', $data)));
+        else
+            return (empty($data)) ? NULL : implode('-', array_reverse(explode('/', substr($data, 0, 10)))) . substr($data, 10, 10);
+    }
+}

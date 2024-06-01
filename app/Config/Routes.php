@@ -35,8 +35,14 @@ $routes->group('imoveis', function ($routes) {
 $routes->group('usuario', function ($routes) {
     // trabalhador
     $routes->get('perfil', 'usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
-    $routes->get('atualiza-perfil', 'usuarios\UserController::atualizaPerfil', ['as' => 'atualizar.usuario.perfil']);
-    $routes->post('atualiza-perfil', 'usuarios\UserController::submitAtualizaPerfil', ['as' => 'submit.atualizar.usuario.perfil']);
+    $routes->get('familiares', 'usuarios\UserController::familiares', ['as' => 'usuario.familiares']);
+    $routes->post('adicionar_informacao/(:segment)', 'usuarios\UserController::adicionarInformacao/$1');
+    $routes->post('salvar_informacoes_pessoais', 'usuarios\UserController::salvarInformacoesPessoais');
+    $routes->post('salvar_objetivo_profissional', 'usuarios\UserController::salvarObjetivoProfissional');
+
+    $routes->post('excluir_informacao/(:any)/(:num)', 'usuarios\UserController::excluirInformacao/$1/$2');
+
+    
 });
 
 // Panel Admin
