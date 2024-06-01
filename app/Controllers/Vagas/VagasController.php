@@ -5,6 +5,7 @@ namespace App\Controllers\Vagas;
 use App\Controllers\BaseController;
 use App\Models\CandidatoVagasModel;
 use App\Models\CategoriasModel;
+use App\Models\ImoveisModel;
 use App\Models\VagasModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -27,13 +28,12 @@ class VagasController extends BaseController
 
     public function detalhes($id)
     {
-        $vaga = new VagasModel();
-
-        $detalhes = $vaga->find($id);
-
-        //var_dump($detalhes);
-
-        return view('vagas/detalhes', compact('detalhes'));
+        $vagaModel = new VagasModel();
+        $imoveisModel = new ImoveisModel();
+       
+        $detalhes = $vagaModel->getVagaComEmpresa($id);
+        $imoveis = $imoveisModel->buscarImoveisProximos($detalhes->latitude, $detalhes->longitude);
+        return view('vagas/detalhes', compact('detalhes', 'imoveis'));
     }
 
     public function candidatar($id)
@@ -116,7 +116,14 @@ class VagasController extends BaseController
             $vaga->where('tipo', strtolower($tipoVaga));
         }
 
-        $vagas = $vaga->findAll();
+        $vagas = $vaga
+        ->select('vagas.*, admin_usuarios.nome as empresa_nome, admin_usuarios.imagem as empresa_imagem')
+        ->join('admin_usuarios', 'vagas.empresa_id = admin_usuarios.id')
+        ->where('vagas.salario IS NOT NULL AND vagas.salario != ""')
+        ->where('vagas.cidade IS NOT NULL AND vagas.cidade != ""')
+        ->where('vagas.estado IS NOT NULL AND vagas.estado != ""')
+        ->where('vagas.deleted_at', null)
+        ->findAll();
 
         // Verifica se a requisição é AJAX
         if ($this->request->isAJAX()) {

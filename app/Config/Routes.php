@@ -5,7 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['as' => 'home.index']);
+
 
 $routes->get('/user-image/(:any)', 'ImageController::getUserImage/$1');
 
@@ -22,8 +23,11 @@ $routes->group('vagas', function ($routes) {
 
 $routes->group('imoveis', function ($routes) {
     // Imoveis
+    $routes->get('/', 'Home::imoveis', ['as' => 'imoveis.index']);
     $routes->get('detalhes/(:num)', 'imoveis\ImoveisController::detalhes/$1', ['as' => 'imovel.detalhes']);
     $routes->post('listar', 'imoveis\ImoveisController::listarImoveis', ['as' => 'imovel.listar']);
+    $routes->get('procurar', 'imoveis\ImoveisController::procurar', ['as' => 'imovel.procurar']);
+
     // Procurar Imoveis
     $routes->match(['get', 'post'], 'procurar-imoveis', 'imoveis\ImoveisController::procurarImoveis', ['as' => 'procurar.imoveis']);
 });

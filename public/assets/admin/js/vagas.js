@@ -21,7 +21,7 @@ $(document).ready(function() {
         },
         "columns": [
             { "data": "nome" },
-            { "data": "localizacao" },
+            { "data": "cidade" },
             { "data": "setor" },
             { "data": "quantidade_limite" },
             {
@@ -33,7 +33,6 @@ $(document).ready(function() {
                   });
                 },
               },
-            { "data": "descricao" },
             { "data": "tipo" },
             {
                 "data": null,

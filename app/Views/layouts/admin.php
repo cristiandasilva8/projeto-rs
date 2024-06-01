@@ -261,6 +261,9 @@
             $('.moeda').mask('#.##0,00', {
                 reverse: true
             });
+
+            $('.area').mask('000.000.000,00 m²', {reverse: true});
+
             // Função para preencher endereço ao digitar o CEP
             function preencheEndereco(cep) {
                 // Limpa o formulário de endereço
@@ -323,6 +326,15 @@
                         alert("Formato de CEP inválido.");
                     }
                 }
+            });
+        });
+        $(function () {
+            // Summernote
+            $(".summernote").summernote({
+            height: 250,
+            codemirror: {
+                theme: "monokai",
+            },
             });
         });
     </script>

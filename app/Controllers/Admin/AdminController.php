@@ -221,8 +221,6 @@ class AdminController extends BaseController
         return view('admin/recuperar_senha');
     }
 
-    
-
     public function candidatos($vagaId)
     {
         $model = new CandidatoVagasModel();
@@ -253,6 +251,8 @@ class AdminController extends BaseController
                 'celular' => $this->request->getPost('celular'),
                 'cpf_cnpj' => $this->request->getPost('cpf_cnpj'),
                 'creci' => ($this->request->getPost('creci')) ? $this->request->getPost('creci') : NULL,
+                'descricao' => ($this->request->getPost('descricao')) ? $this->request->getPost('descricao') : NULL,
+                'nome_responsavel' => ($this->request->getPost('nome_responsavel')) ? $this->request->getPost('nome_responsavel') : NULL,
             ];
 
             // Processamento de upload de imagem

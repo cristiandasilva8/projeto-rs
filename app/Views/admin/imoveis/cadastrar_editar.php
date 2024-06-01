@@ -54,7 +54,7 @@ $imagens = isset($imagens) ? $imagens : [];
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-3">
                 <label for="descricao">Descrição</label>
                 <input type="text" class="form-control" id="descricao" name="descricao" value="<?= isset($imovel) ? $imovel->descricao : ''; ?>" required>
             </div>
@@ -62,9 +62,31 @@ $imagens = isset($imagens) ? $imagens : [];
                 <label for="preco">Preço</label>
                 <input type="text" class="form-control moeda" id="preco" name="preco" value="<?= isset($imovel) ? $imovel->preco : ''; ?>" required>
             </div>
-            <div class="form-group col-md-3">
-                <label for="logradouro">Logradouro</label>
-                <input type="text" class="form-control" id="logradouro" name="logradouro" value="<?= isset($imovel) ? $imovel->logradouro : ''; ?>" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="qtd_quartos">Qdt. Quartos</label>
+                <input type="number" class="form-control" id="qtd_quartos" name="qtd_quartos" value="<?= isset($imovel) ? $imovel->qtd_quartos : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="qtd_banheiros">Qdt. Banheiros</label>
+                <input type="number" class="form-control" id="qtd_banheiros" name="qtd_banheiros" value="<?= isset($imovel) ? $imovel->qtd_banheiros : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="qtd_vagas_garagem">Qdt. Vagas Garagem</label>
+                <input type="number" class="form-control" id="qtd_vagas_garagem" name="qtd_vagas_garagem" value="<?= isset($imovel) ? $imovel->qtd_vagas_garagem : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="qtd_suites">Qdt. Suites</label>
+                <input type="number" class="form-control" id="qtd_suites" name="qtd_suites" value="<?= isset($imovel) ? $imovel->qtd_suites : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="area_construida">Área construída</label>
+                <input type="text" class="form-control area" id="area_construida" name="area_construida" value="<?= isset($imovel) ? $imovel->area_construida : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="area_terreno">Área Terreno</label>
+                <input type="text" class="form-control area" id="area_terreno" name="area_terreno" value="<?= isset($imovel) ? $imovel->area_terreno : ''; ?>" required>
             </div>
         </div>
         <div class="form-row">
@@ -73,14 +95,18 @@ $imagens = isset($imagens) ? $imagens : [];
                 <input type="text" class="form-control" id="cep" name="cep" value="<?= isset($imovel) ? $imovel->cep : ''; ?>" required>
             </div>
             <div class="form-group col-md-2">
+                <label for="logradouro">Logradouro</label>
+                <input type="text" class="form-control" id="logradouro" name="logradouro" value="<?= isset($imovel) ? $imovel->logradouro : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
                 <label for="numero">Número</label>
                 <input type="text" class="form-control" id="numero" name="numero" value="<?= isset($imovel) ? $imovel->numero : ''; ?>" required>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="bairro">Bairro</label>
                 <input type="text" class="form-control" id="bairro" name="bairro" value="<?= isset($imovel) ? $imovel->bairro : ''; ?>" required>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="cidade">Cidade</label>
                 <input type="text" class="form-control" id="cidade" name="cidade" value="<?= isset($imovel) ? $imovel->cidade : ''; ?>" required>
             </div>
@@ -90,19 +116,28 @@ $imagens = isset($imagens) ? $imagens : [];
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="latitude">Latitude</label>
                 <input type="text" class="form-control" id="latitude" name="latitude" value="<?= isset($imovel) ? $imovel->latitude : ''; ?>" required>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="longitude">Longitude</label>
                 <input type="text" class="form-control" id="longitude" name="longitude" value="<?= isset($imovel) ? $imovel->longitude : ''; ?>" required>
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="tipo">Tipo</label>
                 <select class="form-control" id="tipo" name="tipo" required>
                     <option value="aluguel" <?= isset($imovel) && $imovel->tipo == 'aluguel' ? 'selected' : '' ?>>Aluguel</option>
                     <option value="compra" <?= isset($imovel) && $imovel->tipo == 'compra' ? 'selected' : '' ?>>Compra</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <label for="tipo">Tipo da propiedade</label>
+                <select class="form-control" id="id_tipo_propriedade" name="id_tipo_propriedade" required>
+                    <option value="">Selecionar Tipo da propriedade</option>
+                    <?php foreach ($tipo_propriedades as $tipo_propriedade) : ?>
+                        <option value="<?= $tipo_propriedade->id ?>" <?= (isset($imovel) && $imovel->id_tipo_propriedade == $tipo_propriedade->id) ? 'selected' : '' ?>><?= $tipo_propriedade->nome ?></option>
+                    <?php endforeach; ?>
                 </select>
             </div>
             <div class="form-group col-md-3">
@@ -116,7 +151,7 @@ $imagens = isset($imagens) ? $imagens : [];
         <div class="form-row">
             <div class="form-group col-md-12">
                 <label for="caracteristicas">Características</label>
-                <textarea class="form-control" id="summernote" name="caracteristicas" rows="3" required><?= isset($imovel) ? $imovel->caracteristicas : ''; ?></textarea>
+                <textarea class="form-control summernote" name="caracteristicas" rows="3" required><?= isset($imovel) ? $imovel->caracteristicas : ''; ?></textarea>
             </div>
             <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-primary"><?= isset($imovel) ? 'Atualizar' : 'Cadastrar'; ?></button>

@@ -15,6 +15,8 @@ class AdminModel extends Model
     protected $allowedFields    = [
         'nome',
         'email',
+        'nome_responsavel',
+        'descricao',
         'senha',
         'endereco_completo',
         'telefone',

@@ -19,13 +19,44 @@ class CreateImoveisTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'area_construida' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+            ],
+            'area_terreno' => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
+            ],
+            'qtd_quartos' => [
+                'type'       => 'INT',
+                'constraint'     => 11,
+            ],
+            'qtd_banheiros' => [
+                'type'       => 'INT',
+                'constraint'     => 11,
+            ],
+            'qtd_vagas_garagem' => [
+                'type'       => 'INT',
+                'constraint'     => 11,
+                'null'    => true,
+            ],
+            'qtd_suites' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'null'    => true,
+            ],
             'id_empresa' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'id_tipo_propriedade' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned' => true
+            ],
             'preco' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
             ],
             'logradouro' => [
                 'type'       => 'VARCHAR',
@@ -44,8 +75,8 @@ class CreateImoveisTable extends Migration
                 'constraint' => '255',
             ],
             'uf' => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
+                'type'       => 'CHAR',
+                'constraint' => '2',
             ],
             'cep' => [
                 'type'       => 'VARCHAR',
@@ -86,6 +117,7 @@ class CreateImoveisTable extends Migration
             ],
         ]);
         $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('id_tipo_propriedade', 'tipo_propriedades', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('imoveis');
     }
 

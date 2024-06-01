@@ -20,11 +20,10 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Localização</th>
+                <th>Cidade</th>
                 <th>Setor</th>
                 <th>Quantidade</th>
                 <th>Salário</th>
-                <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Ações</th>
             </tr>

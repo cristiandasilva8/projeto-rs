@@ -23,7 +23,11 @@ class CreateTabelaVagas extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
-            'localizacao' => [
+            'latitude' => [
+                'type'       => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'longitude' => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
