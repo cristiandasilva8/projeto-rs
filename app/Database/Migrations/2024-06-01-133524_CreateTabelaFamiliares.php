@@ -20,6 +20,14 @@ class CreateTabelaFamiliares extends Migration
                 'constraint' => 11,
                 'unsigned' => true,
             ],
+            'nome' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
+            'parentesco' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+            ],
             'created_at' => [
                 'type'    => 'DATETIME',
                 'null'    => true,

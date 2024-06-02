@@ -8,6 +8,7 @@ use App\Models\AuthIdentitiesModel;
 use App\Models\CertificacoesModel;
 use App\Models\EducacoesModel;
 use App\Models\ExperienciasProfissionaisModel;
+use App\Models\FamiliaresModel;
 use App\Models\FamiliasModel;
 use App\Models\HabilidadesModel;
 use App\Models\IdiomasModel;
@@ -34,7 +35,8 @@ class UserController extends BaseController
     protected $atividadesExtracurricularesModel;
     protected $publicacoesModel;
     protected $authIdentitiesModel;
-
+    protected $familiarModel;
+    protected $familiaModel;
     public function __construct()
     {
         $this->usuarioModel = new UsuarioModel();
@@ -49,10 +51,64 @@ class UserController extends BaseController
         $this->atividadesExtracurricularesModel = new AtividadesExtracurricularesModel();
         $this->publicacoesModel = new PublicacoesModel();
         $this->authIdentitiesModel = new AuthIdentitiesModel();
+        $this->familiarModel = new FamiliaresModel();
+        $this->familiaModel = new FamiliasModel();
     }
-    public function index()
+   
+    // Método para adicionar familiar
+    // Método para obter o id_familia baseado no usuario_id
+    private function getFamiliaId($usuarioId)
     {
-        //
+        $usuario = $this->familiaModel->where('id_trabalhador', $usuarioId)->first();
+        return $usuario ? $usuario->id : null;
+    }
+
+    // Método para adicionar familiar
+    public function addFamiliar()
+    {
+        $usuarioId = auth()->user()->id;
+        $familiaId = $this->getFamiliaId($usuarioId);
+        if (!$familiaId) {
+            return $this->response->setStatusCode(400)->setJSON(['message' => 'Família não encontrada.']);
+        }
+
+        $data = $this->request->getPost();
+        $data['id_familia'] = $familiaId; // Adicionar o ID da família
+
+        if ($this->familiarModel->insert($data)) {
+            return $this->response->setStatusCode(201)->setJSON(['message' => 'Familiar adicionado com sucesso!']);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['message' => 'Erro ao adicionar familiar.']);
+        }
+    }
+
+    // Método para buscar familiares
+    public function getFamiliares()
+    {
+        $usuarioId = auth()->user()->id;
+        $familiaId = $this->getFamiliaId($usuarioId);
+        if (!$familiaId) {
+            return $this->response->setStatusCode(400)->setJSON(['message' => 'Família não encontrada.']);
+        }
+
+        $familiares = $this->familiarModel->where('id_familia', $familiaId)->findAll();
+        return $this->response->setJSON($familiares);
+    }
+
+    // Método para deletar familiar
+    public function deleteFamiliar($id)
+    {
+        if ($this->familiarModel->delete($id)) {
+            return $this->response->setStatusCode(200)->setJSON(['message' => 'Familiar excluído com sucesso!']);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['message' => 'Erro ao excluir familiar.']);
+        }
+    }
+
+    // Método para carregar a view de gerenciamento de familiares
+    public function familiares()
+    {
+        return view('usuarios/familiares');
     }
 
     public function curriculo()

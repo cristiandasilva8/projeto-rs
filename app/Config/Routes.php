@@ -39,10 +39,11 @@ $routes->group('usuario', function ($routes) {
     $routes->post('adicionar_informacao/(:segment)', 'usuarios\UserController::adicionarInformacao/$1');
     $routes->post('salvar_informacoes_pessoais', 'usuarios\UserController::salvarInformacoesPessoais');
     $routes->post('salvar_objetivo_profissional', 'usuarios\UserController::salvarObjetivoProfissional');
-
     $routes->post('excluir_informacao/(:any)/(:num)', 'usuarios\UserController::excluirInformacao/$1/$2');
 
-    
+    $routes->post('add_familiar', 'usuarios\UserController::addFamiliar');
+    $routes->get('get_familiares', 'usuarios\UserController::getFamiliares');
+    $routes->delete('delete_familiar/(:num)', 'usuarios\UserController::deleteFamiliar/$1');
 });
 
 // Panel Admin
