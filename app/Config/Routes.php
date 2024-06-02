@@ -35,8 +35,15 @@ $routes->group('imoveis', function ($routes) {
 $routes->group('usuario', function ($routes) {
     // trabalhador
     $routes->get('perfil', 'usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
-    $routes->get('atualiza-perfil', 'usuarios\UserController::atualizaPerfil', ['as' => 'atualizar.usuario.perfil']);
-    $routes->post('atualiza-perfil', 'usuarios\UserController::submitAtualizaPerfil', ['as' => 'submit.atualizar.usuario.perfil']);
+    $routes->get('familiares', 'usuarios\UserController::familiares', ['as' => 'usuario.familiares']);
+    $routes->post('adicionar_informacao/(:segment)', 'usuarios\UserController::adicionarInformacao/$1');
+    $routes->post('salvar_informacoes_pessoais', 'usuarios\UserController::salvarInformacoesPessoais');
+    $routes->post('salvar_objetivo_profissional', 'usuarios\UserController::salvarObjetivoProfissional');
+    $routes->post('excluir_informacao/(:any)/(:num)', 'usuarios\UserController::excluirInformacao/$1/$2');
+
+    $routes->post('add_familiar', 'usuarios\UserController::addFamiliar');
+    $routes->get('get_familiares', 'usuarios\UserController::getFamiliares');
+    $routes->delete('delete_familiar/(:num)', 'usuarios\UserController::deleteFamiliar/$1');
 });
 
 // Panel Admin
@@ -64,6 +71,9 @@ $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
     $routes->delete('vagas/delete/(:num)', 'Admin\AdminVagasController::excluirVaga/$1', ['as' => 'admin.vaga.delete']);
     $routes->get('vagas/listar', 'Admin\AdminVagasController::listarVagas', ['as' => 'admin.vaga.listar']);
     $routes->get('vagas/candidatos/(:num)', 'Admin\AdminVagasController::candidatos/$1', ['as' => 'vagas.candidatos']);
+    $routes->get('vagas/curriculo/(:num)', 'Admin\AdminVagasController::curriculo/$1', ['as' => 'vagas.candidato.curriculo']);
+    $routes->post('vagas/enviar_email', 'Admin\AdminVagasController::enviarEmail', ['as' => 'vagas.candidato.enviar.email']);
+
 
     // Imobiliaria imóveis
     $routes->match(['get', 'post'], 'imovel/add', 'Admin\AdminImoveisController::cadastrarImovel', ['as' => 'admin.imovel.add']);

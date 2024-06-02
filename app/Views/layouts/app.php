@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="<?= base_url('/assets/css/style.css') ?>">
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <style>
@@ -86,8 +87,8 @@
                                                 <?= auth()->user()->username ?>
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="<?= url_to('usuario.perfil'); ?>">Currículo</a>
+                                                <a class="dropdown-item" href="<?= url_to('usuario.familiares') ?>">Add Familiares</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a>
                                             </div>

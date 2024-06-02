@@ -3,19 +3,50 @@
 namespace App\Controllers\Vagas;
 
 use App\Controllers\BaseController;
+use App\Models\AtividadesExtracurricularesModel;
+use App\Models\AuthIdentitiesModel;
 use App\Models\CandidatoVagasModel;
 use App\Models\CategoriasModel;
+use App\Models\CertificacoesModel;
+use App\Models\EducacoesModel;
+use App\Models\ExperienciasProfissionaisModel;
+use App\Models\HabilidadesModel;
+use App\Models\IdiomasModel;
 use App\Models\ImoveisModel;
+use App\Models\InformacoesPessoaisModel;
+use App\Models\ObjetivoProfissionalModel;
+use App\Models\ProjetosModel;
+use App\Models\PublicacoesModel;
+use App\Models\UsuarioModel;
 use App\Models\VagasModel;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Shield\Models\UserIdentityModel;
 
 class VagasController extends BaseController
 {
 
+    protected $vagaModel;
+    protected $imoveisModel;
+    protected $candidatoVagasModel;
+    protected $usuarioModel;
+    protected $informacoesPessoaisModel;
+    protected $authIdentitiesModel;
+
+    public function __construct()
+    {
+        $this->vagaModel = new VagasModel();
+        $this->imoveisModel = new ImoveisModel();
+        $this->candidatoVagasModel = new CandidatoVagasModel();
+        $this->usuarioModel = new UsuarioModel();
+        $this->informacoesPessoaisModel = new InformacoesPessoaisModel();
+        $this->authIdentitiesModel = new AuthIdentitiesModel();
+    }
+    
+
     public function listarVagas()
     {
-        $vagaModel = new VagasModel();
-        $data = $vagaModel->getVagasComCandidatos();
+
+        $data = $this->vagaModel->getVagasComCandidatos();
 
         return $this->response->setJSON([
             "draw" => intval($this->request->getPost('draw')),
@@ -28,22 +59,21 @@ class VagasController extends BaseController
 
     public function detalhes($id)
     {
-        $vagaModel = new VagasModel();
-        $imoveisModel = new ImoveisModel();
        
-        $detalhes = $vagaModel->getVagaComEmpresa($id);
-        $imoveis = $imoveisModel->buscarImoveisProximos($detalhes->latitude, $detalhes->longitude);
+        $detalhes = $this->vagaModel->getVagaComEmpresa($id);
+        $imoveis = $this->imoveisModel->buscarImoveisProximos($detalhes->latitude, $detalhes->longitude);
         return view('vagas/detalhes', compact('detalhes', 'imoveis'));
     }
 
     public function candidatar($id)
     {
-        $candidatar = new CandidatoVagasModel();
-
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url("vagas/detalhes/$id"))->with('error', 'Você não está logado para se candidatar a vaga!');
+        }
         $userId = auth()->user()->id;
 
         // Verifica se o usuário já se candidatou a esta vaga
-        $alreadyApplied = $candidatar->where('id_usuario', $userId)
+        $alreadyApplied = $this->candidatoVagasModel->where('id_usuario', $userId)
             ->where('id_vaga', $id)
             ->first();
 
@@ -56,25 +86,26 @@ class VagasController extends BaseController
             'id_vaga' => $id,
         ];
 
-        $candidatar->save((object)$data);
+        if(!$this->candidatoVagasModel->save((object)$data)){
+            return redirect()->to(base_url("vagas/detalhes/$id"))->with('error', 'Ocorreu um erro no momento de se candidatar a vaga, entre em contato com o suporte.');
+        }
+
+        $vaga  = $this->vagaModel->getVagaComEmpresa($id);
+        $candidato = $this->dadosCandidato();
 
 
         // Configura o serviço de e-mail
-        // $email = \Config\Services::email();
+        $email = \Config\Services::email();
 
-        // $email->setFrom('seu-email@example.com', 'Nome do Site');
-        // $email->setTo($empresaEmail);
+        $email->setFrom(ADMIN_EMAIL, SITE_NAME);
+        $email->setTo($vaga->empresa_email);
 
-        // $email->setSubject('Novo candidato para a vaga: ' . $vaga->titulo);
-        // $email->setMessage(view('emails/candidatura', ['user' => $user, 'vaga' => $vaga]));
+        $email->setSubject('Novo candidato para a vaga: ' . $vaga->nome);
+        $email->setMessage(view('emails/candidatura', ['usuario' => (object)$candidato, 'vaga' => $vaga]));
 
-        // if ($email->send()) {
-        //     return redirect()->to(base_url("vagas/detalhes/$id"))->with('success', 'Você se candidatou à vaga e a empresa foi notificada.');
-        // } else {
-        //     return redirect()->to(base_url("vagas/detalhes/$id"))->with('error', 'Falha ao enviar e-mail para a empresa.');
-        // }
-
-
+        if (!$email->send()) {
+            return redirect()->to(base_url("vagas/detalhes/$id"))->with('error', 'Falha ao enviar e-mail para a empresa.');
+        } 
 
         return redirect()->to(base_url("vagas/detalhes/$id"))->with('success', 'Você se candidatou à vaga');
     }
@@ -131,5 +162,25 @@ class VagasController extends BaseController
         } else {
             return view('vagas/procurar_vagas', compact('vagas', 'categorias'));
         }
+    }
+
+    private function dadosCandidato()
+    {
+        $id = auth()->user()->id;
+
+        // Buscar informações do usuário
+        $usuario = $this->usuarioModel->find($id);
+        $informacoesPessoais = $this->informacoesPessoaisModel->where('usuario_id', $id)->first();
+  
+        // Buscar informações de autenticação (Shield)
+        $authIdentitiesModel = new UserIdentityModel;
+        $authIdentities = $authIdentitiesModel->where('user_id', $id)->first();
+
+        return [
+            'usuario' => $usuario,
+            'informacoesPessoais' => $informacoesPessoais,
+            'authIdentities' => $authIdentities,
+
+        ];
     }
 }
