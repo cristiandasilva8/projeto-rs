@@ -25,6 +25,12 @@ class CreateCandidatoVagasTable extends Migration
                 'constraint' => 11,
                 'unsigned'   => true,
             ],
+            'selecionado' => [
+                'type'       => 'INT',
+                'constraint' => 11,
+                'unsigned'   => true,
+                'default'    => 0,
+            ],
             'created_at' => [
                 'type'    => 'DATETIME',
                 'null'    => true,

@@ -70,6 +70,9 @@ $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
     $routes->delete('vagas/delete/(:num)', 'Admin\AdminVagasController::excluirVaga/$1', ['as' => 'admin.vaga.delete']);
     $routes->get('vagas/listar', 'Admin\AdminVagasController::listarVagas', ['as' => 'admin.vaga.listar']);
     $routes->get('vagas/candidatos/(:num)', 'Admin\AdminVagasController::candidatos/$1', ['as' => 'vagas.candidatos']);
+    $routes->get('vagas/curriculo/(:num)', 'Admin\AdminVagasController::curriculo/$1', ['as' => 'vagas.candidato.curriculo']);
+    $routes->post('vagas/enviar_email', 'Admin\AdminVagasController::enviarEmail', ['as' => 'vagas.candidato.enviar.email']);
+
 
     // Imobiliaria imóveis
     $routes->match(['get', 'post'], 'imovel/add', 'Admin\AdminImoveisController::cadastrarImovel', ['as' => 'admin.imovel.add']);

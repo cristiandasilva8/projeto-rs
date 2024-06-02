@@ -12,7 +12,7 @@ class InformacoesPessoaisModel extends Model
     protected $returnType       = 'object';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields = ['usuario_id', 'endereco', 'telefone', 'linkedin', 'instagram', 'facebook', 'foto_perfil'];
+    protected $allowedFields = ['usuario_id', 'endereco', 'telefone', 'linkedin', 'instagram', 'facebook', 'foto_perfil', 'whatsapp'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

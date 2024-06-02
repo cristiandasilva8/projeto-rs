@@ -30,6 +30,10 @@ class CreateInformacoesPessoaisTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => '15',
             ],
+            'whatsapp' => [
+                'type' => 'VARCHAR',
+                'constraint' => '15',
+            ],
             'linkedin' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

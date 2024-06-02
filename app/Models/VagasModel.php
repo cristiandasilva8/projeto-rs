@@ -68,7 +68,7 @@ class VagasModel extends Model
 
     public function getVagaComEmpresa($id)
     {
-        return $this->select('vagas.*, admin_usuarios.nome as empresa_nome, admin_usuarios.imagem as empresa_imagem, admin_usuarios.descricao as empresa_descricao, admin_usuarios.nome_responsavel as empresa_nome_responsavel, admin_usuarios.email as empresa_email, admin_usuarios.telefone as empresa_telefone')
+        return $this->select('vagas.*, admin_usuarios.nome as empresa_nome, admin_usuarios.endereco_completo as empresa_endereco, admin_usuarios.imagem as empresa_imagem, admin_usuarios.descricao as empresa_descricao, admin_usuarios.nome_responsavel as empresa_nome_responsavel, admin_usuarios.email as empresa_email, admin_usuarios.telefone as empresa_telefone')
                     ->join('admin_usuarios', 'vagas.empresa_id = admin_usuarios.id')
                     ->where('vagas.salario IS NOT NULL')
                     ->where('vagas.cidade IS NOT NULL')

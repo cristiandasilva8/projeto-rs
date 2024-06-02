@@ -55,6 +55,44 @@ class UserController extends BaseController
         //
     }
 
+    public function curriculo()
+    {
+        $id = auth()->user()->id;
+
+        // Buscar informações do usuário
+        $usuario = $this->usuarioModel->find($id);
+        $informacoesPessoais = $this->informacoesPessoaisModel->where('usuario_id', $id)->first();
+        $objetivoProfissional = $this->objetivoProfissionalModel->where('usuario_id', $id)->first();
+        $educacoes = $this->educacoesModel->where('usuario_id', $id)->findAll();
+        $experienciasProfissionais = $this->experienciasProfissionaisModel->where('usuario_id', $id)->findAll();
+        $habilidades = $this->habilidadesModel->where('usuario_id', $id)->findAll();
+        $certificacoes = $this->certificacoesModel->where('usuario_id', $id)->findAll();
+        $idiomas = $this->idiomasModel->where('usuario_id', $id)->findAll();
+        $projetos = $this->projetosModel->where('usuario_id', $id)->findAll();
+        $atividadesExtracurriculares = $this->atividadesExtracurricularesModel->where('usuario_id', $id)->findAll();
+        $publicacoes = $this->publicacoesModel->where('usuario_id', $id)->findAll();
+
+        // Buscar informações de autenticação (Shield)
+        $authIdentitiesModel = new UserIdentityModel;
+        $authIdentities = $authIdentitiesModel->where('user_id', $id)->first();
+
+        return [
+            'usuario' => $usuario,
+            'informacoesPessoais' => $informacoesPessoais,
+            'objetivoProfissional' => $objetivoProfissional,
+            'educacoes' => $educacoes,
+            'experienciasProfissionais' => $experienciasProfissionais,
+            'habilidades' => $habilidades,
+            'certificacoes' => $certificacoes,
+            'idiomas' => $idiomas,
+            'projetos' => $projetos,
+            'atividadesExtracurriculares' => $atividadesExtracurriculares,
+            'publicacoes' => $publicacoes,
+            'authIdentities' => $authIdentities,
+
+        ];
+    }
+
     public function perfil()
     {
         if (!isset(auth()->user()->id)) {
@@ -192,6 +230,7 @@ class UserController extends BaseController
         $informacoesPessoaisData = [
             'usuario_id' => $data['usuario_id'],
             'telefone' => $data['telefone'],
+            'whatsapp' => $data['whatsapp'],
             'endereco' => $data['endereco'],
             'linkedin' => $data['linkedin'],
             'instagram' => $data['instagram'],

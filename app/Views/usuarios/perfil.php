@@ -63,6 +63,10 @@
                         <input type="text" class="form-control" id="telefone" name="telefone" value="<?= !empty($informacoesPessoais->telefone) ? $informacoesPessoais->telefone : '' ?>" required>
                     </div>
                     <div class="form-group">
+                        <label for="whatsapp">Telefone</label>
+                        <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="<?= !empty($informacoesPessoais->whatsapp) ? $informacoesPessoais->whatsapp : '' ?>" required>
+                    </div>
+                    <div class="form-group">
                         <label for="endereco">Endereço</label>
                         <input type="text" class="form-control" id="endereco" name="endereco" value="<?= !empty($informacoesPessoais->endereco) ? $informacoesPessoais->endereco : '' ?>" required>
                     </div>
