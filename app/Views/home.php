@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-tittle text-center">
-                    <span>Vaga Recente</span>
+                    <span>Vagas Recentes</span>
                     <h2>Vagas em Destaque</h2>
                     </div>
                 </div>
@@ -49,16 +49,17 @@
                     <div class="single-job-items mb-30">
                         <div class="job-items">
                             <div class="company-img">
-                                <a href="<?= url_to('vaga.detalhes', $vaga->id)?>"><img src="<?= base_url('assets/img/icon/job-list1.png') ?>" alt=""></a>
+                                <a href="<?= url_to('vaga.detalhes', $vaga->id) ?>">
+                                    <img src="<?= ($vaga->empresa_imagem != null) ? base_url($vaga->empresa_imagem) : base_url('assets/img/icon/job-list1.png') ?>" alt="" width="85" height="85">
+                                </a>
                             </div>
                             <div class="job-tittle">
                                 <a href="<?= url_to('vaga.detalhes', $vaga->id)?>">
                                     <h4><?= $vaga->nome ?></h4>
                                 </a>
                                 <ul>
-                                    <li><?= $vaga->requisitos ?></li>
                                     <li><i class="fas fa-map-marker-alt"></i><?= $vaga->cidade ." - ". $vaga->estado?></li>
-                                    <li>R$<?= $vaga->salario ?></li>
+                                    <li>R$<?= moeda($vaga->salario) ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -79,8 +80,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-tittle white-text text-center">
-                        <span>Apply process</span>
-                        <h2> How it works</h2>
+                        <span></span>
+                        <h2> Como funciona</h2>
                     </div>
                 </div>
             </div>
@@ -92,8 +93,8 @@
                             <span class="flaticon-search"></span>
                         </div>
                         <div class="process-cap">
-                            <h5>1. Search a job</h5>
-                            <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            <h5>1. Procure uma vaga</h5>
+                            <p>Explore oportunidades de emprego que impulsionem sua carreira.</p>
                         </div>
                     </div>
                 </div>
@@ -103,8 +104,8 @@
                             <span class="flaticon-curriculum-vitae"></span>
                         </div>
                         <div class="process-cap">
-                            <h5>2. Apply for job</h5>
-                            <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            <h5>2. Condidate-se</h5>
+                            <p>Condidate-se para a vaga e demonstre seu potencia.</p>
                         </div>
                     </div>
                 </div>
@@ -114,8 +115,8 @@
                             <span class="flaticon-tour"></span>
                         </div>
                         <div class="process-cap">
-                            <h5>3. Get your job</h5>
-                            <p>Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            <h5>3. Prepare-se</h5>
+                            <p>Prepare-se para a entrevista e garanta seu novo emprego.</p>
                         </div>
                     </div>
                 </div>
@@ -131,13 +132,13 @@
                     <div class="right-caption">
                         <!-- Section Tittle -->
                         <div class="section-tittle section-tittle2">
-                            <span>What we are doing</span>
-                            <h2>24k Talented people are getting Jobs</h2>
+                            <span>O que está esperando?</span>
+                            <h2>Conecte-se com Talentos e Impulsione Sua Empresa</h2>
                         </div>
                         <div class="support-caption">
-                            <p class="pera-top">Mollit anim laborum duis au dolor in voluptate velit ess cillum dolore eu lore dsu quality mollit anim laborumuis au dolor in voluptate velit cillum.</p>
-                            <p>Mollit anim laborum.Duis aute irufg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla parihatur. Excghcepteur signjnt occa cupidatat non inulpadeserunt mollit aboru. temnthp incididbnt ut labore mollit anim laborum suis aute.</p>
-                            <a href="about.html" class="btn post-btn">Post a job</a>
+                            <p class="pera-top">Cadastre suas vagas de emprego no nosso sistema e encontre os melhores profissionais para sua empresa.</p>
+                            <p>Facilite o processo de recrutamento com nossa plataforma intuitiva, onde você pode divulgar oportunidades, receber candidaturas e selecionar os talentos que farão a diferença no seu negócio. Junte-se a nós e descubra como é simples atrair candidatos qualificados e elevar sua equipe ao próximo nível.</p>
+                            <a href="about.html" class="btn post-btn">Cadastrar vagas</a>
                         </div>
                     </div>
                 </div>
@@ -145,8 +146,8 @@
                     <div class="support-location-img">
                         <img src="assets/img/service/support-img.jpg" alt="">
                         <div class="support-img-cap text-center">
-                            <p>Since</p>
-                            <span>1994</span>
+                            <p>Comece</p>
+                            <span>Agora!</span>
                         </div>
                     </div>
                 </div>

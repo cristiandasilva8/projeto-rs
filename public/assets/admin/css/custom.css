@@ -1,0 +1,32 @@
+.text-center img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .list-unstyled {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .list-unstyled li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .list-unstyled li:last-child {
+    border-bottom: none;
+  }
+
+  .list-group-item-action {
+    cursor: pointer;
+  }
+
+  .list-group-item-action:hover {
+    background-color: #f8f9fa;
+  }
+
+  .bg-success.text-white {
+    background-color: #9aedad96 !important;
+    color: #181616 !important;
+  }

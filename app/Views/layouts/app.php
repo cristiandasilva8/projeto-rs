@@ -23,7 +23,23 @@
     <link rel="stylesheet" href="<?= base_url('/assets/css/slick.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/nice-select.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/style.css') ?>">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
+<style>
+    /* Define o tamanho do mapa */
+    /* Define o tamanho do mapa */
+    #map {
+        display: block;
+        height: 300px;
+        /* Ajuste a altura conforme necessário */
+        width: 100%;
+        /* Ajuste a largura conforme necessário */
+        margin-bottom: 1em;
+    }
+</style>
 
 <body>
     <!-- Preloader Start -->
@@ -47,7 +63,7 @@
                         <div class="col-lg-3 col-md-2">
                             <!-- Logo -->
                             <div class="logo">
-                                <a href="index.html"><img src="<?= base_url('/assets/img/logo/logo.png') ?>" alt=""></a>
+                                <a href="<?= url_to('home.index') ?>"><img src="<?= base_url('/assets/img/logo/logo.png') ?>" alt=""></a>
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-9">
@@ -56,18 +72,9 @@
                                 <div class="main-menu">
                                     <nav class="d-none d-lg-block">
                                         <ul id="navigation">
-                                            <li><a href="index.html">Home</a></li>
+                                            <li><a href="<?= url_to('home.index') ?>">Home</a></li>
                                             <li><a href="<?= url_to('procurar.vagas') ?>">Procurar Vagas </a></li>
-                                            <li><a href="about.html">About</a></li>
-                                            <li><a href="#">Page</a>
-                                                <ul class="submenu">
-                                                    <li><a href="blog.html">Blog</a></li>
-                                                    <li><a href="single-blog.html">Blog Details</a></li>
-                                                    <li><a href="elements.html">Elements</a></li>
-                                                    <li><a href="job_details.html">job Details</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a href="<?= url_to('imoveis.index') ?>">Procurar Imóveis</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -80,8 +87,8 @@
                                                 <?= auth()->user()->username ?>
                                             </a>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
+                                                <a class="dropdown-item" href="<?= url_to('usuario.perfil'); ?>">Currículo</a>
+                                                <a class="dropdown-item" href="<?= url_to('usuario.familiares') ?>">Add Familiares</a>
                                                 <div class="dropdown-divider"></div>
                                                 <a class="dropdown-item" href="<?= base_url('logout') ?>">Logout</a>
                                             </div>
@@ -109,108 +116,8 @@
         <?= $this->renderSection('content') ?>
     </div>
 
-
     <footer>
         <!-- Footer Start-->
-        <div class="footer-area footer-bg footer-padding">
-            <div class="container">
-                <div class="row d-flex justify-content-between">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <div class="single-footer-caption mb-50">
-                            <div class="single-footer-caption mb-30">
-                                <div class="footer-tittle">
-                                    <h4>About Us</h4>
-                                    <div class="footer-pera">
-                                        <p>Heaven frucvitful doesn't cover lesser dvsays appear creeping seasons so behold.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Contact Info</h4>
-                                <ul>
-                                    <li>
-                                        <p>Address :Your address goes
-                                            here, your demo address.</p>
-                                    </li>
-                                    <li><a href="#">Phone : +8880 44338899</a></li>
-                                    <li><a href="#">Email : info@colorlib.com</a></li>
-                                </ul>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Important Link</h4>
-                                <ul>
-                                    <li><a href="#"> View Project</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                    <li><a href="#">Testimonial</a></li>
-                                    <li><a href="#">Proparties</a></li>
-                                    <li><a href="#">Support</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="single-footer-caption mb-50">
-                            <div class="footer-tittle">
-                                <h4>Newsletter</h4>
-                                <div class="footer-pera footer-pera2">
-                                    <p>Heaven fruitful doesn't over lesser in days. Appear creeping.</p>
-                                </div>
-                                <!-- Form -->
-                                <div class="footer-form">
-                                    <div id="mc_embed_signup">
-                                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part">
-                                            <input type="email" name="email" id="newsletter-form-email" placeholder="Email Address" class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
-                                            <div class="form-icon">
-                                                <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm"><img src="assets/img/icon/form.png" alt=""></button>
-                                            </div>
-                                            <div class="mt-10 info"></div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--  -->
-                <div class="row footer-wejed justify-content-between">
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
-                        <!-- logo -->
-                        <div class="footer-logo mb-20">
-                            <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="footer-tittle-bottom">
-                            <span>5000+</span>
-                            <p>Talented Hunter</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <div class="footer-tittle-bottom">
-                            <span>451</span>
-                            <p>Talented Hunter</p>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-4 col-sm-5">
-                        <!-- Footer Bottom Tittle -->
-                        <div class="footer-tittle-bottom">
-                            <span>568</span>
-                            <p>Talented Hunter</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- footer-bottom area -->
         <div class="footer-bottom-area footer-bg">
             <div class="container">
@@ -221,17 +128,12 @@
                                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                     Copyright &copy;<script>
                                         document.write(new Date().getFullYear());
-                                    </script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    </script> Desenvolvido <i class="fa fa-heart" aria-hidden="true"></i> por <a href="https://colorlib.com" target="_blank">voluntários</a>
                                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
                             </div>
                         </div>
                         <div class="col-xl-2 col-lg-2">
-                            <div class="footer-social f-right">
-                                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a href="#"><i class="fab fa-twitter"></i></a>
-                                <a href="#"><i class="fas fa-globe"></i></a>
-                                <a href="#"><i class="fab fa-behance"></i></a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -277,8 +179,10 @@
     <script src="<?= base_url('/assets/js/plugins.js') ?>"></script>
     <script src="<?= base_url('/assets/js/main.js') ?>"></script>
 
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDL4HdV6ycjjj_Vo2JSe9Daei4J6uQNNM4&callback=initMap&libraries=maps,marker&v=beta"></script>
 
     <script>
+        var BASE_URL = '<?= base_url() ?>';
         function formatarData(dataStr) {
             const options = {
                 year: 'numeric',
@@ -289,70 +193,95 @@
             return data.toLocaleDateString('pt-BR', options);
         }
 
-        document.getElementById('filtro-vagas').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio do formulário padrão
-
-            const termo = document.getElementById('termo').value;
-            const salarioMin = document.getElementById('salario_min').value;
-            const salarioMax = document.getElementById('salario_max').value;
-            const categoriaId = document.getElementById('id_categoria').value;
-            const tipoVaga = document.getElementById('tipo_vaga').value;
-
-            fetch('<?= base_url('vagas/procurar-vagas') ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-Requested-With': 'XMLHttpRequest' // Garante que a requisição seja tratada como AJAX
-                    },
-                    body: new URLSearchParams({
-                        'termo': termo,
-                        'salario_min': salarioMin,
-                        'salario_max': salarioMax,
-                        'id_categoria': categoriaId,
-                        'tipo_vaga': tipoVaga
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const resultadosDiv = document.getElementById('resultados-vagas');
-                    const jobCountSpan = document.getElementById('job-count');
-                    resultadosDiv.innerHTML = ''; // Limpa os resultados anteriores
-
-                    if (data.length > 0) {
-                        jobCountSpan.textContent = `${data.length} Jobs found`;
-
-                        data.forEach(vaga => {
-                            const vagaDiv = document.createElement('div');
-                            vagaDiv.classList.add('single-job-items', 'mb-30');
-                            vagaDiv.innerHTML = `
-                        <div class="job-items">
-                            <div class="company-img">
-                                <a href="#"><img src="assets/img/icon/job-list1.png" alt=""></a>
-                            </div>
-                            <div class="job-tittle job-tittle2">
-                                <a href="#">
-                                    <h4>${vaga.nome}</h4>
-                                </a>
-                                <ul>
-                                    <li>${vaga.empresa}</li>
-                                    <li><i class="fas fa-map-marker-alt"></i>${vaga.localizacao}</li>
-                                    <li>${vaga.salario}</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="items-link items-link2 f-right">
-                            <a href="#">${vaga.tipo}</a>
-                            <span>${formatarData(vaga.created_at)}</span>
-                        </div>
-                    `;
-                            resultadosDiv.appendChild(vagaDiv);
-                        });
-                    } else {
-                        jobCountSpan.textContent = '0 Jobs found';
-                        resultadosDiv.innerHTML = '<p>Nenhuma vaga encontrada.</p>';
-                    }
+        document.addEventListener('DOMContentLoaded', function() {
+            var filtroVagas = document.getElementById('filtro-vagas');
+            if (filtroVagas) {
+                filtroVagas.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Impede o envio do formulário padrão
+                    buscarVagas();
                 });
+            }
         });
+
+        setTimeout(() => {
+            buscarVagas();
+        }, 1000);
+        
+        <?php if (isset($detalhes->latitude) && isset($detalhes->longitude) && !empty($detalhes->latitude) && !empty($detalhes->longitude)): ?>
+            const latitude = <?= $detalhes->latitude ?>;
+            const longitude = <?= $detalhes->longitude ?>;
+
+            // Substitua estas variáveis pelos seus dados de latitude e longitude
+            const jobLocation = {
+                latitude: latitude,
+                longitude: longitude
+            };
+            const houseLocations = <?php echo json_encode($imoveis); ?>;
+            if (latitude && longitude) {
+                function initMap() {
+                    // Define o centro inicial do mapa
+                    const center = {
+                        lat: jobLocation.latitude,
+                        lng: jobLocation.longitude
+                    };
+
+                    // Cria o mapa centrado nas coordenadas fornecidas
+                    const map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 16,
+                        center: center
+                    });
+
+                    // Adiciona o marcador para a vaga de emprego com o ícone padrão
+                    new google.maps.Marker({
+                        position: {
+                            lat: jobLocation.latitude,
+                            lng: jobLocation.longitude
+                        },
+                        map: map,
+                        title: jobLocation.title,
+                        animation: google.maps.Animation.BOUNCE // Define a animação para pular
+                    });
+
+                    // Define o ícone do marcador de casa personalizado
+                    const houseIcon = {
+                        url: '<?php echo base_url('assets/img/icon/location-pin.png') ?>', // URL da imagem da casa
+                        scaledSize: new google.maps.Size(50, 50) // Ajuste o tamanho do ícone
+                    };
+
+                    // Itera sobre a matriz de localizações de casas para adicionar os marcadores
+                    houseLocations.forEach(location => {
+                        new google.maps.Marker({
+                            position: {
+                                lat: location.latitude,
+                                lng: location.longitude
+                            },
+                            map: map,
+                            title: location.title,
+                            icon: houseIcon,
+                            animation: google.maps.Animation.BOUNCE // Define a animação para pular
+                        });
+                    });
+
+                    // Função para ajustar o tamanho do mapa
+                    function adjustMapSize() {
+                        const mapElement = document.getElementById('map');
+                        if (window.innerWidth < 600) {
+                            mapElement.style.height = '30vh';
+                        } else {
+                            mapElement.style.height = '50vh';
+                        }
+                    }
+
+                    // Ajusta o tamanho do mapa na carga inicial
+                    adjustMapSize();
+
+                    // Adiciona um listener para ajustar o tamanho do mapa quando a janela é redimensionada
+                    window.addEventListener('resize', adjustMapSize);
+                }
+            }  else {
+                document.getElementById('map').innerHTML = '<p>Localização da vaga não disponível.</p>';
+            }
+        <?php endif; ?>
     </script>
 
 </body>

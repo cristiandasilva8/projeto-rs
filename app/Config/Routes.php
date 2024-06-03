@@ -5,7 +5,8 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Home::index', ['as' => 'home.index']);
+
 
 $routes->get('/user-image/(:any)', 'ImageController::getUserImage/$1');
 
@@ -20,11 +21,29 @@ $routes->group('vagas', function ($routes) {
     $routes->match(['get', 'post'], 'procurar-vagas', 'vagas\VagasController::procurarVagas', ['as' => 'procurar.vagas']);
 });
 
+$routes->group('imoveis', function ($routes) {
+    // Imoveis
+    $routes->get('/', 'Home::imoveis', ['as' => 'imoveis.index']);
+    $routes->get('detalhes/(:num)', 'imoveis\ImoveisController::detalhes/$1', ['as' => 'imovel.detalhes']);
+    $routes->post('listar', 'imoveis\ImoveisController::listarImoveis', ['as' => 'imovel.listar']);
+    $routes->get('procurar', 'imoveis\ImoveisController::procurar', ['as' => 'imovel.procurar']);
+
+    // Procurar Imoveis
+    $routes->match(['get', 'post'], 'procurar-imoveis', 'imoveis\ImoveisController::procurarImoveis', ['as' => 'procurar.imoveis']);
+});
+
 $routes->group('usuario', function ($routes) {
     // trabalhador
     $routes->get('perfil', 'usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
-    $routes->get('atualiza-perfil', 'usuarios\UserController::atualizaPerfil', ['as' => 'atualizar.usuario.perfil']);
-    $routes->post('atualiza-perfil', 'usuarios\UserController::submitAtualizaPerfil', ['as' => 'submit.atualizar.usuario.perfil']);
+    $routes->get('familiares', 'usuarios\UserController::familiares', ['as' => 'usuario.familiares']);
+    $routes->post('adicionar_informacao/(:segment)', 'usuarios\UserController::adicionarInformacao/$1');
+    $routes->post('salvar_informacoes_pessoais', 'usuarios\UserController::salvarInformacoesPessoais');
+    $routes->post('salvar_objetivo_profissional', 'usuarios\UserController::salvarObjetivoProfissional');
+    $routes->post('excluir_informacao/(:any)/(:num)', 'usuarios\UserController::excluirInformacao/$1/$2');
+
+    $routes->post('add_familiar', 'usuarios\UserController::addFamiliar');
+    $routes->get('get_familiares', 'usuarios\UserController::getFamiliares');
+    $routes->delete('delete_familiar/(:num)', 'usuarios\UserController::deleteFamiliar/$1');
 });
 
 // Panel Admin
@@ -52,13 +71,16 @@ $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
     $routes->delete('vagas/delete/(:num)', 'Admin\AdminVagasController::excluirVaga/$1', ['as' => 'admin.vaga.delete']);
     $routes->get('vagas/listar', 'Admin\AdminVagasController::listarVagas', ['as' => 'admin.vaga.listar']);
     $routes->get('vagas/candidatos/(:num)', 'Admin\AdminVagasController::candidatos/$1', ['as' => 'vagas.candidatos']);
+    $routes->get('vagas/curriculo/(:num)', 'Admin\AdminVagasController::curriculo/$1', ['as' => 'vagas.candidato.curriculo']);
+    $routes->post('vagas/enviar_email', 'Admin\AdminVagasController::enviarEmail', ['as' => 'vagas.candidato.enviar.email']);
+
 
     // Imobiliaria imóveis
-    $routes->get('imovel/listar', 'Admin\AdminImoveisController::listarImovel', ['as' => 'admin.imovel.listar']);
     $routes->match(['get', 'post'], 'imovel/add', 'Admin\AdminImoveisController::cadastrarImovel', ['as' => 'admin.imovel.add']);
     $routes->match(['get', 'post'], 'imovel/edit/(:num)', 'Admin\AdminImoveisController::editarImovel/$1', ['as' => 'admin.imovel.edit']);    
     $routes->match(['get', 'post'], 'imovel/uploadImages/(:num)', 'Admin\AdminImoveisController::uploadImages/$1', ['as' => 'admin.imovel.uploadImages']);
-
-
+    $routes->delete('imovel/deleteImage/(:num)', 'Admin\AdminImoveisController::deleteImage/$1', ['as' => 'admin.imovel.deleteImage']);
+    $routes->delete('imovel/delete/(:num)', 'Admin\AdminImoveisController::excluirImovel/$1', ['as' => 'admin.imovel.delete']);
+    $routes->get('imovel/listar', 'Admin\AdminImoveisController::listarImoveis', ['as' => 'admin.imovel.listar']);
 
 });

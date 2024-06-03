@@ -15,7 +15,8 @@ class VagasModel extends Model
     protected $allowedFields    = [
         'nome',
         'empresa_id',
-        'localizacao',
+        'latitude',
+        'longitude',
         'setor',
         'quantidade_limite',
         'requisitos',
@@ -64,11 +65,41 @@ class VagasModel extends Model
         $data = (object)$data;
         return $this->insert($data);
     }
+
+    public function getVagaComEmpresa($id)
+    {
+        return $this->select('vagas.*, admin_usuarios.nome as empresa_nome, admin_usuarios.endereco_completo as empresa_endereco, admin_usuarios.imagem as empresa_imagem, admin_usuarios.descricao as empresa_descricao, admin_usuarios.nome_responsavel as empresa_nome_responsavel, admin_usuarios.email as empresa_email, admin_usuarios.telefone as empresa_telefone')
+                    ->join('admin_usuarios', 'vagas.empresa_id = admin_usuarios.id')
+                    ->where('vagas.salario IS NOT NULL')
+                    ->where('vagas.cidade IS NOT NULL')
+                    ->where('vagas.estado IS NOT NULL')
+                    ->where('vagas.id', $id)
+                    ->orderBy('vagas.id', 'DESC')
+                    ->first();
+    }
+
+    public function getUltimasVagasComEmpresa($limit = 6)
+    {
+        return $this->select('vagas.*, admin_usuarios.nome as empresa_nome, admin_usuarios.imagem as empresa_imagem, admin_usuarios.descricao as empresa_descricao, admin_usuarios.nome_responsavel as empresa_nome_responsavel, admin_usuarios.email as empresa_email, admin_usuarios.telefone as empresa_telefone')
+                    ->join('admin_usuarios', 'vagas.empresa_id = admin_usuarios.id')
+                    ->where('admin_usuarios.id_grupo', 2)
+                    ->where('vagas.salario IS NOT NULL AND vagas.salario != ""')
+                    ->where('vagas.cidade IS NOT NULL AND vagas.cidade != ""')
+                    ->where('vagas.estado IS NOT NULL AND vagas.estado != ""')
+                    ->where('vagas.deleted_at', null)
+                    ->orderBy('vagas.id', 'DESC')
+                    ->limit($limit)
+                    ->findAll();
+    }
+    
     public function getVagasComCandidatos()
     {
         return $this->db->table('vagas')
             ->select('vagas.*, COUNT(candidato_vagas.id_usuario) as num_candidatos')
             ->join('candidato_vagas', 'vagas.id = candidato_vagas.id_vaga', 'left')
+            ->where('vagas.salario IS NOT NULL AND vagas.salario != ""')
+            ->where('vagas.cidade IS NOT NULL AND vagas.cidade != ""')
+            ->where('vagas.estado IS NOT NULL AND vagas.estado != ""')
             ->where('vagas.deleted_at', null)  // Adiciona condição para incluir apenas registros não excluídos
             ->groupBy('vagas.id')
             ->get()
@@ -87,7 +118,7 @@ class VagasModel extends Model
             ->select('id')
             ->groupStart()
             ->like('nome', $search)
-            ->orLike('localizacao', $search)
+            ->orLike('cidade', $search)
             ->orLike('setor', $search)
             ->orLike('descricao', $search)
             ->groupEnd()

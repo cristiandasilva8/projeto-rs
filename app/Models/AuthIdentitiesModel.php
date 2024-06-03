@@ -17,4 +17,8 @@ class AuthIdentitiesModel extends Model
                     ->where(['secret' => $email]) // Assume que 'secret' armazena o email e 'type' especifica o tipo de identidade
                     ->first();
     }
+
+    public function updatePassword($user_id, $password){
+        return $this->where('user_id', $user_id)->set(['secret2' => $password])->update();
+    }
 }

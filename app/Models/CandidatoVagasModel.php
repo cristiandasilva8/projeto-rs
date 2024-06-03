@@ -14,7 +14,8 @@ class CandidatoVagasModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'id_usuario',
-        'id_vaga'
+        'id_vaga',
+        'selecionado'
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -51,9 +52,19 @@ class CandidatoVagasModel extends Model
     {
         return $this->db->table($this->table)
             ->join('users', 'users.id = candidato_vagas.id_usuario')
+            ->join('auth_identities', 'auth_identities.user_id = users.id')
+            ->join('informacoes_pessoais', 'informacoes_pessoais.usuario_id = users.id', 'left')
             ->where('candidato_vagas.id_vaga', $vagaId)
-            ->select('users.username')
+            ->select('users.id, users.username, auth_identities.secret as email, informacoes_pessoais.telefone, informacoes_pessoais.whatsapp, candidato_vagas.selecionado')
             ->get()
             ->getResult();
     }
+
+    public function selecionarCandidato($candidatoId, $vagaId){
+        return $this->where('id_usuario', $candidatoId)
+                        ->where('id_vaga', $vagaId)
+                        ->set(['selecionado' => 1])
+                        ->update();
+    }
+
 }

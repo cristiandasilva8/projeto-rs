@@ -17,19 +17,22 @@
     <h2>Alterar Perfil</h2>
     <form action="<?= url_to('admin.usuario.perfil') ?>" method="POST" enctype="multipart/form-data">
         <div class="row">
-            <?php if(session()->get('grupo') == 2): ?>
+            
             <!-- Campo para Upload de Imagem -->
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="imagem">Imagem do Perfil:</label>
                 <input type="file" class="form-control-file" id="imagem" name="imagem">
                 <!-- Mostrar a imagem se já existir -->
                 <img src="<?= base_url($userData->imagem) ?>" alt="Profile Image" class="img-thumbnail mt-2" style="width: 100px;">
             </div>
-            <?php endif ?>
             <!-- Nome -->
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-4">
                 <label for="name">Nome:</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Digite seu nome" value="<?= $userData->nome ?>" required>
+            </div>
+            <div class="form-group col-md-4">
+                <label for="name">Nome responsável:</label>
+                <input type="text" class="form-control" id="nome_responsavel" name="nome_responsavel" placeholder="Digite o nome do responsavel" value="<?= $userData->nome_responsavel ?>" required>
             </div>
         </div>
 
@@ -82,6 +85,12 @@
                 <input type="text" class="form-control" id="creci" name="creci" placeholder="Digite seu CRECI" value="<?= $userData->creci ?>">
             </div>
             <?php endif ?>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="descricao">Conte sua história</label>
+                <textarea class="form-control summernote"name="descricao" rows="3" required><?= isset($userData) ? $userData->descricao : ''; ?></textarea>
+            </div>
         </div>
 
         <!-- Botão de Submissão -->

@@ -19,12 +19,12 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="../../index2.html"><b>Admin</b>LTE</a>
+      <a href="<?= base_url('admin/login'); ?>"><b>Painel</b> Adminstrativo</a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Sign in to start your session</p>
+        <p class="login-box-msg">Faça seu login</p>
 
         <form action="<?= url_to('admin.check.login'); ?>" method="POST">
           <?php if (session()->has('error')) : ?>
@@ -69,6 +69,9 @@
         </p>
         <p class="mb-0">
           <a href="<?= base_url('admin/registrar') ?>" class="text-center">Criar uma conta</a>
+        </p>
+        <p class="mb-0">
+          <a href="<?= base_url('vagas/procurar-vagas')  ?>" class="text-center">Voltar para a página de vagas</a>
         </p>
       </div>
       <!-- /.login-card-body -->

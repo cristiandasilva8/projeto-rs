@@ -56,21 +56,25 @@
         </div>
 
         <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="localizacao">Localização:</label>
-                <input type="text" class="form-control" id="localizacao" name="localizacao" value="<?= isset($vaga) ? $vaga->localizacao : ''; ?>" required>
-            </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="cep">CEP:</label>
                 <input type="text" class="form-control" id="cep" name="cep" value="<?= isset($vaga) ? $vaga->cep : ''; ?>" required>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-4">
                 <label for="cidade">Cidade:</label>
                 <input type="text" class="form-control" id="cidade" name="cidade" value="<?= isset($vaga) ? $vaga->cidade : ''; ?>" required>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-1">
                 <label for="estado">Estado:</label>
                 <input type="text" class="form-control" id="estado" name="estado" value="<?= isset($vaga) ? $vaga->estado : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="latitude">Latitude:</label>
+                <input type="text" class="form-control" id="latitude" name="latitude" value="<?= isset($vaga) ? $vaga->latitude : ''; ?>" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="longitude">Longitude:</label>
+                <input type="text" class="form-control" id="longitude" name="longitude" value="<?= isset($vaga) ? $vaga->longitude : ''; ?>" required>
             </div>
         </div>
 
@@ -81,7 +85,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label for="salario">Salário:</label>
-                <input type="text" class="form-control" id="salario" name="salario" value="<?= isset($vaga) ? $vaga->salario : ''; ?>" required>
+                <input type="text" class="form-control moeda" id="salario" name="salario" value="<?= isset($vaga) ? $vaga->salario : ''; ?>" required>
             </div>
             <div class="form-group col-md-4">
                 <label for="tipo">Tipo de Contratação:</label>
@@ -94,17 +98,17 @@
 
         <div class="form-group">
             <label for="requisitos">Requisitos:</label>
-            <textarea class="form-control" id="requisitos" name="requisitos" rows="3"><?= isset($vaga) ? $vaga->requisitos : ''; ?></textarea>
+            <textarea class="form-control summernote" id="requisitos" name="requisitos" rows="3"><?= isset($vaga) ? $vaga->requisitos : ''; ?></textarea>
         </div>
 
         <div class="form-group">
             <label for="descricao">Descrição da Vaga:</label>
-            <textarea class="form-control" id="descricao" name="descricao" rows="3"><?= isset($vaga) ? $vaga->descricao : ''; ?></textarea>
+            <textarea class="form-control summernote" id="descricao" name="descricao" rows="3"><?= isset($vaga) ? $vaga->descricao : ''; ?></textarea>
         </div>
 
         <div class="form-group">
             <label for="outros_beneficios">Outros Benefícios:</label>
-            <textarea class="form-control" id="outros_beneficios" name="outros_beneficios" rows="3"><?= isset($vaga) ? $vaga->outros_beneficios : ''; ?></textarea>
+            <textarea class="form-control summernote" id="outros_beneficios" name="outros_beneficios" rows="3"><?= isset($vaga) ? $vaga->outros_beneficios : ''; ?></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary"><?= isset($vaga) ? 'Atualizar' : 'Cadastrar'; ?> Vaga</button>

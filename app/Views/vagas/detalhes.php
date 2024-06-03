@@ -20,12 +20,12 @@
     <!-- Hero Area End -->
     <!-- job post company Start -->
     <div class="job-post-company pt-120 pb-120">
-        <?php if(session()->getFlashdata('success')): ?>
+        <?php if (session()->getFlashdata('success')) : ?>
             <div class="alert alert-success" role="alert">
                 Parabéns, você de candidatou a vaga!
             </div>
         <?php endif; ?>
-        <?php if(session()->getFlashdata('error')): ?>
+        <?php if (session()->getFlashdata('error')) : ?>
             <div class="alert alert-warning" role="alert">
                 você já está candidatado a essa vaga
             </div>
@@ -38,16 +38,15 @@
                     <div class="single-job-items mb-50">
                         <div class="job-items">
                             <div class="company-img company-img-details">
-                                <a href="#"><img src="<?= base_url('/assets/img/icon/job-list1.png') ?>" alt=""></a>
+                                <img src="<?= ($detalhes->empresa_imagem != null) ? base_url($detalhes->empresa_imagem) : base_url('assets/img/icon/job-list1.png') ?>" alt="" width="85" height="85">
                             </div>
                             <div class="job-tittle">
                                 <a href="#">
                                     <h4><?= $detalhes->nome ?></h4>
                                 </a>
                                 <ul>
-                                    <li><?= $detalhes->requisitos ?></li>
-                                    <li><i class="fas fa-map-marker-alt"></i><?= $detalhes->cidade ." - ". $detalhes->estado ?></li>
-                                    <li>R$ <?= $detalhes->salario ?></li>
+                                    <li><i class="fas fa-map-marker-alt"></i><?= $detalhes->cidade . " - " . $detalhes->estado ?></li>
+                                    <li>R$ <?= moeda($detalhes->salario) ?></li>
                                 </ul>
                             </div>
                         </div>
@@ -55,12 +54,19 @@
                     <!-- job single End -->
 
                     <div class="job-post-details">
-                        <div class="post-details1 mb-50">
+                        <div class="post-details2 mb-50">
                             <!-- Small Section Tittle -->
                             <div class="small-section-tittle">
                                 <h4>Descrição da vaga</h4>
                             </div>
-                            <p><?= $detalhes->descricao ?></p>
+                            <?= $detalhes->descricao ?>
+                        </div>
+                        <div class="post-details2 mb-50">
+                            <!-- Small Section Tittle -->
+                            <div class="small-section-tittle">
+                                <h4>Requistos da vaga</h4>
+                            </div>
+                            <?= $detalhes->requisitos ?>
                         </div>
                         <div class="post-details2  mb-50">
                             <!-- Small Section Tittle -->
@@ -69,8 +75,11 @@
                             </div>
                             <?= $detalhes->outros_beneficios ?>
                         </div>
-                    </div>
 
+                        <h1>Localização Geográfica</h1>
+                        <div id="map"></div>
+                    </div>
+                   
                 </div>
                 <!-- Right Content -->
                 <div class="col-xl-4 col-lg-4">
@@ -80,10 +89,10 @@
                             <h4>Detalhes</h4>
                         </div>
                         <ul>
-                            <li>Posted date : <span><?= (new DateTime($detalhes->created_at))->format('d M Y') ?></span></li>
-                            <li>Location : <span><?= $detalhes->cidade?></span></li>
+                            <li>Criação da Vaga : <span><?= (new DateTime($detalhes->created_at))->format('d/m/Y') ?></span></li>
+                            <li>Localização : <span><?= $detalhes->cidade ?></span></li>
                             <li>Quantidade de vagas : <span><?= $detalhes->quantidade_limite ?></span></li>
-                            <li>Tipo : <span><?= strtoupper($detalhes->tipo) ?></span></li>
+                            <li>Tipo do contrato : <span><?= strtoupper($detalhes->tipo) ?></span></li>
                             <li>Salário : <span><?= 'R$ ' . $detalhes->salario ?></span></li>
                         </ul>
                         <div class="apply-btn2">
@@ -91,13 +100,27 @@
                                 <form method="POST" action="<?= url_to('vaga.candidatar', $detalhes->id) ?>">
                                     <button type="submit" class="btn">Candidatar-se</button>
                                 </form>
-                            <?php else: ?>
+                            <?php else : ?>
                                 <a href="<?= base_url('login') ?>" class="btn head-btn2">Login</a>
                                 <a href="<?= base_url('register') ?>" class="btn head-btn1">Cadastrar</a>
                             <?php endif; ?>
                         </div>
                     </div>
+                    <div class="post-details4  mb-50">
+                    <!-- Small Section Tittle -->
+                    <div class="small-section-tittle">
+                        <h4>Detalhes da empresa</h4>
+                    </div>
+                    <span><?= $detalhes->empresa_nome ?></span>
+                    <p><?= $detalhes->empresa_descricao ?></p>
+                    <ul>
+                        <li>Responsável: <span><?= $detalhes->empresa_nome_responsavel ?></span></li>
+                        <li>Tel. : <span><?= $detalhes->empresa_telefone ?></span></li>
+                        <li>Email: <span><?= $detalhes->empresa_email ?></span></li>
+                    </ul>
                 </div>
+                </div>
+                
             </div>
         </div>
     </div>
