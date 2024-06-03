@@ -59,6 +59,9 @@ class UserController extends BaseController
     // Método para obter o id_familia baseado no usuario_id
     private function getFamiliaId($usuarioId)
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
         $usuario = $this->familiaModel->where('id_trabalhador', $usuarioId)->first();
         return $usuario ? $usuario->id : null;
     }
@@ -66,6 +69,10 @@ class UserController extends BaseController
     // Método para adicionar familiar
     public function addFamiliar()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+        
         $usuarioId = auth()->user()->id;
         $familiaId = $this->getFamiliaId($usuarioId);
         if (!$familiaId) {
@@ -85,6 +92,10 @@ class UserController extends BaseController
     // Método para buscar familiares
     public function getFamiliares()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+
         $usuarioId = auth()->user()->id;
         $familiaId = $this->getFamiliaId($usuarioId);
         if (!$familiaId) {
@@ -98,6 +109,10 @@ class UserController extends BaseController
     // Método para deletar familiar
     public function deleteFamiliar($id)
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+
         if ($this->familiarModel->delete($id)) {
             return $this->response->setStatusCode(200)->setJSON(['message' => 'Familiar excluído com sucesso!']);
         } else {
@@ -108,11 +123,18 @@ class UserController extends BaseController
     // Método para carregar a view de gerenciamento de familiares
     public function familiares()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
         return view('usuarios/familiares');
     }
 
     public function curriculo()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+
         $id = auth()->user()->id;
 
         // Buscar informações do usuário
@@ -193,6 +215,10 @@ class UserController extends BaseController
 
     public function adicionarInformacao($tipo)
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+        
         $data = $this->request->getPost();
 
         switch ($tipo) {
@@ -235,6 +261,9 @@ class UserController extends BaseController
 
     public function excluirInformacao($tipo, $id)
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
         
         switch ($tipo) {
             case 'educacao':
@@ -272,6 +301,9 @@ class UserController extends BaseController
 
     public function salvarInformacoesPessoais()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
         $data = $this->request->getPost();
 
         // Adicione o ID do usuário aos dados
@@ -355,6 +387,10 @@ class UserController extends BaseController
 
     public function salvarObjetivoProfissional()
     {
+        if (!isset(auth()->user()->id)) {
+            return redirect()->to(base_url());
+        }
+
         $data = $this->request->getPost();
 
         // Adicione o ID do usuário aos dados
