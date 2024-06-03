@@ -47,14 +47,18 @@ $routes->group('usuario', function ($routes) {
 });
 
 // Panel Admin
-$routes->get('admin/login', 'Admin\AdminController::login', ['as' => 'admin.login', 'filter' => 'loginfilter']);
-$routes->match(['get', 'post'], 'admin/registrar', 'Admin\AdminController::registrarUsuario', ['as' => 'admin.registrar.usuario']);
-$routes->post('admin/login', 'Admin\AdminController::checkLogin', ['as' => 'admin.check.login']);
 
-$routes->match(['get', 'post'], 'admin/verificar', 'Admin\AdminController::verificar', ['as' => 'admin.check.code']);
-$routes->match(['get', 'post'], 'admin/recuperar-senha', 'Admin\AdminController::recuperarSenha', ['as' => 'admin.recupera.senha']);
 
 $routes->group('admin', ['filter' => 'authfilter'], function ($routes) {
+
+    $routes->get('login', 'Admin\AdminController::login', ['as' => 'admin.login', 'filter' => 'loginfilter']);
+    $routes->match(['get', 'post'], 'registrar', 'Admin\AdminController::registrarUsuario', ['as' => 'admin.registrar.usuario']);
+    $routes->post('login', 'Admin\AdminController::checkLogin', ['as' => 'admin.check.login']);
+
+    $routes->match(['get', 'post'], 'verificar', 'Admin\AdminController::verificar', ['as' => 'admin.check.code']);
+    $routes->match(['get', 'post'], 'recuperar-senha', 'Admin\AdminController::recuperarSenha', ['as' => 'admin.recupera.senha']);
+
+
     // usuario adminstrativos
     $routes->get('/', 'Admin\AdminController::index', ['as' => 'admin.index']);
     $routes->get('logout', 'Admin\AdminController::logout', ['as' => 'admin.logout']);

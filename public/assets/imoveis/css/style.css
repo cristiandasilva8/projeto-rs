@@ -492,3 +492,19 @@
     object-fit: contain; /* Redimensiona a imagem mantendo a proporção */
     margin: 0 auto; /* Centraliza a imagem dentro da coluna */
 }
+
+.whatsapp-button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+.whatsapp-button:hover {
+    background-color: #1EBEA5;
+}

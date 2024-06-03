@@ -12,7 +12,7 @@
             <div class="col-md-12 mb-3">
                 <select class="form-control" id="parentescoFamiliar" name="parentesco" required>
                     <option value="" disabled selected>Selecione o parentesco</option>
-                    <option value="Cônjuge">Cônjuge</option>
+                    <option value="Cônjuge">Cônjuge(Esposa/Marido)</option>
                     <option value="Pai">Pai</option>
                     <option value="Mãe">Mãe</option>
                     <option value="Irmão">Irmão</option>

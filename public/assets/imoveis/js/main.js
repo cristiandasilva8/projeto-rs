@@ -200,3 +200,13 @@ function buscarImoveis() {
 setTimeout(() => {
   buscarImoveis();
 }, 1000);
+
+
+$(document).on('click', '.whatsapp-button', function() {
+  var whatsappNumber = $(this).data('whatsapp');
+  var mensagem = $(this).data('mensagem');
+  // Remove espaços, traços e parênteses do número
+  whatsappNumber = whatsappNumber.replace(/\s+/g, '').replace(/[-()]/g, '');
+  var whatsappLink = 'https://api.whatsapp.com/send?phone=55' + whatsappNumber + '&text=' + encodeURIComponent(mensagem);
+  window.open(whatsappLink, '_blank');
+});
