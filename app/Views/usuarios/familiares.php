@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 mb-3">
-                <button type="submit" class="btn btn-primary">Adicionar Familiar</button>
+                <button type="submit" class="btn btn-nano">Adicionar Familiar</button>
             </div>
         </div>
     </form>
@@ -65,7 +65,7 @@
                                 <td>${familiar.nome}</td>
                                 <td>${familiar.parentesco}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm delete-familiar" data-id="${familiar.id}">Excluir</button>
+                                    <button class="btn btn-nano btn-sm delete-familiar" data-id="${familiar.id}"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         `;

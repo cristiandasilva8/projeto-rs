@@ -59,7 +59,7 @@
             </div>
             <div class="col-md-4 property-details">
                 <div class="container mb-5 text-center">
-                    <button class="btn btn-success btn-sm whatsapp-button" data-mensagem="Olá, me interessei nesse imóvel, <?= $detalhes->descricao ?>, gostaria de mais informações" data-whatsapp="<?= $detalhes->empresa_telefone ?>"><i class="fa-brands fa-whatsapp"></i> Enviar mensagem via WhatsApp</button>
+                    <button class="btn btn-success btn-sm whatsapp-button" data-mensagem="Olá, me interessei nesse imóvel, <?= $detalhes->descricao ?>, gostaria de mais informações" data-whatsapp="<?= $detalhes->empresa_telefone ?>"><i class="fa-brands fa-whatsapp"></i> Entrar em contato com a imobiliária</button>
                 </div>
                 <h1 class="text-primary">Detalhes do Imóvel</h1>
                 <hr />
@@ -67,8 +67,9 @@
                     <b><h2>Preço: <span class="text-primary">R$ <?= moeda($detalhes->preco) ?></span></h2></b>
                 </div>
                 <div class="total mt-2">
-                    Tipo: <?= strtolower($detalhes->tipo) ?>
+                    <h2>Tipo: <?= strtolower($detalhes->tipo) ?><h2>
                 </div>
+                <hr />
                 <div class="details mt-3">
                     <h3 class="text-primary">Detalhes</h3>
                     <div class="detail-item"><i class="fa-solid text-primary fa-city"></i> Código: <?= $detalhes->id ?></div>
@@ -82,7 +83,7 @@
                     <?= $detalhes->caracteristicas ?>
                 </div>
                 <div class="features">
-                    <h3>Características Adicionais</h3>
+                    <h3 class="text-primary">Características Adicionais</h3>
                     <div class="feature-item"><i class="fa-solid text-primary fa-bed"></i> Dormitório(s): <?= $detalhes->qtd_quartos ?></div>
                     <div class="feature-item"><i class="fa-solid text-primary fa-ruler-combined"></i> Área total contruída: <?= $detalhes->area_construida ?> m²</div>
                     <div class="feature-item"><i class="fa-solid text-primary fa-ruler-combined"></i> Área total terreno: <?= $detalhes->area_terreno ?> m²</div>
