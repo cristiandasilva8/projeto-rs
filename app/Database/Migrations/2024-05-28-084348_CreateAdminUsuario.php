@@ -87,8 +87,8 @@ class CreateAdminUsuarios extends Migration
                 'null'    => true,
             ],
         ]);
-        $this->forge->addKey('id_usuario', true);
-        $this->forge->addForeignKey('id_grupo', 'grupo_usuario', 'id_grupo', 'CASCADE', 'CASCADE');
+        $this->forge->addKey('id', true);
+        $this->forge->addForeignKey('id_grupo', 'grupo_usuario', 'id', 'CASCADE', 'CASCADE');
         $this->forge->createTable('admin_usuarios');
     }
 
