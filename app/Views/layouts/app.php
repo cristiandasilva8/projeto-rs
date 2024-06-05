@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<?= base_url('/assets/css/slick.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/nice-select.css') ?>">
     <link rel="stylesheet" href="<?= base_url('/assets/css/style.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/css/custom.css') ?>">
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

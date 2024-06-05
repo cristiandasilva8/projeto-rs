@@ -58,38 +58,43 @@
                 </div>
             </div>
             <div class="col-md-4 property-details">
-                <h2>Detalhes do Imóvel</h2>
-                <div class="price">
-                    Preço: R$ <?= moeda($detalhes->preco) ?>
+                <div class="container mb-5 text-center">
+                    <button class="btn btn-success btn-sm whatsapp-button" data-mensagem="Olá, me interessei nesse imóvel, <?= $detalhes->descricao ?>, gostaria de mais informações" data-whatsapp="<?= $detalhes->empresa_telefone ?>"><i class="fa-brands fa-whatsapp"></i> Entrar em contato com a imobiliária</button>
                 </div>
-                <div class="total">
-                    Tipo: <?= strtolower($detalhes->tipo) ?>
+                <h1 class="text-primary">Detalhes do Imóvel</h1>
+                <hr />
+                <div class="mt-2">
+                    <b><h2>Preço: <span class="text-primary">R$ <?= moeda($detalhes->preco) ?></span></h2></b>
                 </div>
-                <div class="details">
-                    <h3>Detalhes</h3>
-                    <div class="detail-item">Código: <?= $detalhes->id ?></div>
-                    <div class="detail-item">Categoria: <?= $detalhes->nome_tipo_propriedade ?></div>
-                    <div class="detail-item">Endereço: <?= $detalhes->logradouro ?></div>
-                    <div class="detail-item">Bairro: <?= $detalhes->bairro ?>, N°<?= $detalhes->numero ?></div>
-                    <div class="detail-item">Cidade: <?= $detalhes->cidade ?> - <?= $detalhes->uf ?></div>
+                <div class="total mt-2">
+                    <h2>Tipo: <?= strtolower($detalhes->tipo) ?><h2>
+                </div>
+                <hr />
+                <div class="details mt-3">
+                    <h3 class="text-primary">Detalhes</h3>
+                    <div class="detail-item"><i class="fa-solid text-primary fa-city"></i> Código: <?= $detalhes->id ?></div>
+                    <div class="detail-item"><i class="fa-solid text-primary fa-city"></i> Categoria: <?= $detalhes->nome_tipo_propriedade ?></div>
+                    <div class="detail-item"><i class="fa-solid text-primary fa-road"></i> Endereço: <?= $detalhes->logradouro ?></div>
+                    <div class="detail-item"><i class="fa-solid text-primary fa-people-roof"></i> Bairro: <?= $detalhes->bairro ?>, N°<?= $detalhes->numero ?></div>
+                    <div class="detail-item"><i class="fa-solid text-primary fa-city"></i> Cidade: <?= $detalhes->cidade ?> - <?= $detalhes->uf ?></div>
                 </div>
                 <div class="description">
-                    <h3>Descrição</h3>
+                    <h3 class="text-primary">Descrição</h3>
                     <?= $detalhes->caracteristicas ?>
                 </div>
                 <div class="features">
-                    <h3>Características Adicionais</h3>
-                    <div class="feature-item">Dormitório(s): <?= $detalhes->qtd_quartos ?></div>
-                    <div class="feature-item">Área total contruída: <?= $detalhes->area_construida ?> m²</div>
-                    <div class="feature-item">Área total terreno: <?= $detalhes->area_terreno ?> m²</div>
-                    <div class="feature-item">Banheiro(s): <?= $detalhes->qtd_banheiros ?></div>
-                    <div class="feature-item">Suite(s): <?= $detalhes->qtd_suites ?></div>
-                    <div class="feature-item">Vaga de garagem: <?= $detalhes->qtd_vagas_garagem ?></div>
+                    <h3 class="text-primary">Características Adicionais</h3>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-bed"></i> Dormitório(s): <?= $detalhes->qtd_quartos ?></div>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-ruler-combined"></i> Área total contruída: <?= $detalhes->area_construida ?> m²</div>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-ruler-combined"></i> Área total terreno: <?= $detalhes->area_terreno ?> m²</div>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-shower"></i> Banheiro(s): <?= $detalhes->qtd_banheiros ?></div>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-bath"></i> Suite(s): <?= $detalhes->qtd_suites ?></div>
+                    <div class="feature-item"><i class="fa-solid text-primary fa-warehouse"></i> Vaga de garagem: <?= $detalhes->qtd_vagas_garagem ?></div>
                     <hr />
-                    <div class="feature-item"><b>Imobiliária: <?= $detalhes->empresa_nome ?></b></div>
-                    <div class="feature-item"><b>Responsável: <?= $detalhes->empresa_nome_responsavel ?></b></div>
-                    <div class="feature-item"><b>E-mail: <?= $detalhes->empresa_email ?></b></div>
-                    <div class="feature-item"><b>Contato: <?= $detalhes->empresa_telefone ?></b></div>
+                    <div class="feature-item"><b><i class="fa-solid text-primary fa-building"></i> Imobiliária: <?= $detalhes->empresa_nome ?></b></div>
+                    <div class="feature-item"><b><i class="fa-solid text-primary fa-user-tie"></i> Responsável: <?= $detalhes->empresa_nome_responsavel ?></b></div>
+                    <div class="feature-item"><b><i class="fa-solid text-primary fa-envelope"></i> E-mail: <?= $detalhes->empresa_email ?></b></div>
+                    <div class="feature-item"><b><i class="fa-solid text-primary fa-phone-volume"></i> Contato: <?= $detalhes->empresa_telefone ?></b></div>
                 </div>
             </div>
         </div>

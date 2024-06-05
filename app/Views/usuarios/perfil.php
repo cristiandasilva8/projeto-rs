@@ -1,24 +1,24 @@
 <?= $this->extend('layouts/app.php'); ?>
 <?= $this->section('content'); ?>
 
-<div class="slider-area ">
+<div class="slider-area">
         <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="<?= base_url('assets/img/hero/about.jpg'); ?>">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>Atualizar seus dados de perfil e </h2>
+                            <h2>Atualizar seus dados de perfil/currículo</h2>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-<div class="container mt-5" style="margin-bottom: 10em;">
+<div class="container mt-5 mb-3 col-md-12 container-perfil">
     <div id="wizard" class="card">
         <div class="card-body">
             <h2>Editar Perfil</h2>
-            <ul class="nav nav-tabs" id="wizardTabs" role="tablist">
+            <ul class="nav nav-pills justify-content-center" id="wizardTabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active text-dark" id="tab-step-1" data-toggle="tab" href="#step-1" role="tab" aria-controls="step-1" aria-selected="true">Informações Pessoais</a>
                 </li>
@@ -53,7 +53,7 @@
 
             <div class="tab-content" id="wizardTabContent">
                 <!-- Step 1: Informações Pessoais -->
-                <div class="tab-pane fade show active wizard-step" id="step-1" role="tabpanel" aria-labelledby="tab-step-1">
+                <div class="tab-pane fade show active wizard-step mt-4" id="step-1" role="tabpanel" aria-labelledby="tab-step-1">
                     <h3>Informações Pessoais</h3>
                     <div class="form-group text-center">
                         <?php if (!empty($informacoesPessoais->foto_perfil)) : ?>
@@ -103,25 +103,25 @@
                         <label for="confirmar_senha">Confirmar Senha</label>
                         <input type="password" class="form-control" id="confirmar_senha" name="confirmar_senha">
                     </div>
-                    <button type="button" class="btn btn-primary save-personal-info">Salvar</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-2">Próximo</button>
+                    <button type="button" class="btn btn-nano save-personal-info">Salvar</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-2">Próximo</button>
                 </div>
 
                 <!-- Step 2: Objetivo Profissional -->
-                <div class="tab-pane fade wizard-step" id="step-2" role="tabpanel" aria-labelledby="tab-step-2">
+                <div class="tab-pane fade wizard-step mt-4" id="step-2" role="tabpanel" aria-labelledby="tab-step-2">
                     <h3>Objetivo Profissional</h3>
                     <div class="form-group">
-                        <label for="objetivo">Objetivo</label>
                         <textarea class="form-control" id="objetivo" name="objetivo" rows="4" required><?= !empty($objetivoProfissional->objetivo) ? $objetivoProfissional->objetivo : '' ?></textarea>
                     </div>
-                    <button type="button" class="btn btn-primary save-objetivo">Salvar</button>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-1">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-3">Próximo</button>
+                    <button type="button" class="btn btn-nano save-objetivo">Salvar</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-1">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-3">Próximo</button>
                 </div>
+
                 <!-- Step 3: Educação -->
-                <div class="tab-pane fade wizard-step" id="step-3" role="tabpanel" aria-labelledby="tab-step-3">
+                <div class="tab-pane fade wizard-step mt-4" id="step-3" role="tabpanel" aria-labelledby="tab-step-3">
                     <h3>Educação</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="educacao" data-acao="educacao">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="educacao" data-acao="educacao">Adicionar</button>
                     <div id="educacao-container">
                         <table class="table">
                             <thead>
@@ -141,20 +141,20 @@
                                         <td><?= bd2br($educacao->data_inicio) ?></td>
                                         <td><?= bd2br($educacao->data_fim) ?></td>
                                         <td>
-                                            <button type="button" data-action="educacao" class="btn btn-danger btn-sm delete-educacao"><i class="fa fa-trash"></i></button>
+                                            <button type="button" data-action="educacao" class="btn btn-nano btn-sm delete-educacao"><i class="fa fa-trash"></i></button>
                                         </td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-2">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-4">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-2">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-4">Próximo</button>
                 </div>
 
                 <!-- Step 4: Experiência Profissional -->
-                <div class="tab-pane fade wizard-step" id="step-4" role="tabpanel" aria-labelledby="tab-step-4">
+                <div class="tab-pane fade wizard-step mt-4" id="step-4" role="tabpanel" aria-labelledby="tab-step-4">
                     <h3>Experiência Profissional</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="experiencia" data-acao="experiencia">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="experiencia" data-acao="experiencia">Adicionar</button>
                     <div id="experiencia-container">
                         <table class="table">
                             <thead>
@@ -175,19 +175,19 @@
                                         <td><?= bd2br($experiencia->data_inicio) ?></td>
                                         <td><?= bd2br($experiencia->data_fim) ?></td>
                                         <td><?= $experiencia->responsabilidades ?></td>
-                                        <td><button type="button" data-action="experiencia" class="btn btn-danger btn-sm delete-experiencia"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="experiencia" class="btn btn-nano btn-sm delete-experiencia"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-3">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-5">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-3">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-5">Próximo</button>
                 </div>
 
                 <!-- Step 5: Habilidades -->
-                <div class="tab-pane fade wizard-step" id="step-5" role="tabpanel" aria-labelledby="tab-step-5">
+                <div class="tab-pane fade wizard-step mt-4" id="step-5" role="tabpanel" aria-labelledby="tab-step-5">
                     <h3>Habilidades</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="habilidade" data-acao="habilidade">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="habilidade" data-acao="habilidade">Adicionar</button>
                     <div id="habilidade-container">
                         <table class="table">
                             <thead>
@@ -202,19 +202,19 @@
                                     <tr data-id="<?= $habilidade->id ?>">
                                         <td><?= $habilidade->habilidade ?></td>
                                         <td><?= $habilidade->tipo ?></td>
-                                        <td><button type="button" data-action="habilidade" class="btn btn-danger btn-sm delete-habilidade"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="habilidade" class="btn btn-nano btn-sm delete-habilidade"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-4">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-6">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-4">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-6">Próximo</button>
                 </div>
 
                 <!-- Step 6: Certificações -->
-                <div class="tab-pane fade wizard-step" id="step-6" role="tabpanel" aria-labelledby="tab-step-6">
+                <div class="tab-pane fade wizard-step mt-4" id="step-6" role="tabpanel" aria-labelledby="tab-step-6">
                     <h3>Certificações</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="certificacao" data-acao="certificacao">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="certificacao" data-acao="certificacao">Adicionar</button>
                     <div id="certificacao-container">
                         <table class="table">
                             <thead>
@@ -233,19 +233,19 @@
                                         <td><?= $certificacao->instituicao ?></td>
                                         <td><?= bd2br($certificacao->data_emissao) ?></td>
                                         <td><?= bd2br($certificacao->data_validade) ?></td>
-                                        <td><button type="button" data-action="certificacao" class="btn btn-danger btn-sm delete-certificacao"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="certificacao" class="btn btn-nano btn-sm delete-certificacao"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-5">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-7">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-5">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-7">Próximo</button>
                 </div>
 
                 <!-- Step 7: Idiomas -->
-                <div class="tab-pane fade wizard-step" id="step-7" role="tabpanel" aria-labelledby="tab-step-7">
+                <div class="tab-pane fade wizard-step mt-4" id="step-7" role="tabpanel" aria-labelledby="tab-step-7">
                     <h3>Idiomas</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="idioma" data-acao="idioma">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="idioma" data-acao="idioma">Adicionar</button>
                     <div id="idioma-container">
                         <table class="table">
                             <thead>
@@ -260,19 +260,19 @@
                                     <tr data-id="<?= $idioma->id ?>">
                                         <td><?= $idioma->idioma ?></td>
                                         <td><?= $idioma->nivel ?></td>
-                                        <td><button type="button" data-action="idioma" class="btn btn-danger btn-sm delete-idioma"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="idioma" class="btn btn-nano btn-sm delete-idioma"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-6">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-8">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-6">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-8">Próximo</button>
                 </div>
 
                 <!-- Step 8: Projetos -->
-                <div class="tab-pane fade wizard-step" id="step-8" role="tabpanel" aria-labelledby="tab-step-8">
+                <div class="tab-pane fade wizard-step mt-4" id="step-8" role="tabpanel" aria-labelledby="tab-step-8">
                     <h3>Projetos</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="projeto" data-acao="projeto">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="projeto" data-acao="projeto">Adicionar</button>
                     <div id="projeto-container">
                         <table class="table">
                             <thead>
@@ -287,19 +287,19 @@
                                     <tr data-id="<?= $projeto->id ?>">
                                         <td><?= $projeto->projeto ?></td>
                                         <td><?= $projeto->descricao ?></td>
-                                        <td><button type="button" data-action="projeto" class="btn btn-danger btn-sm delete-projeto"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="projeto" class="btn btn-nano btn-sm delete-projeto"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-7">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-9">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-7">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-9">Próximo</button>
                 </div>
 
                 <!-- Step 9: Atividades Extracurriculares -->
                 <div class="tab-pane fade wizard-step" id="step-9" role="tabpanel" aria-labelledby="tab-step-9">
                     <h3>Atividades Extracurriculares</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="atividade" data-acao="atividade">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="atividade" data-acao="atividade">Adicionar</button>
                     <div id="atividade-container">
                         <table class="table">
                             <thead>
@@ -314,19 +314,19 @@
                                     <tr data-id="<?= $atividade->id ?>">
                                         <td><?= $atividade->atividade ?></td>
                                         <td><?= $atividade->descricao ?></td>
-                                        <td><button type="button" data-action="atividade" class="btn btn-danger btn-sm delete-atividade"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button" data-action="atividade" class="btn btn-nano btn-sm delete-atividade"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-8">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-10">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-8">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-10">Próximo</button>
                 </div>
 
                 <!-- Step 10: Publicações -->
                 <div class="tab-pane fade wizard-step" id="step-10" role="tabpanel" aria-labelledby="tab-step-10">
                     <h3>Publicações</h3>
-                    <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modalForm" data-form="publicacao" data-acao="publicacao">Adicionar</button>
+                    <button type="button" class="btn btn-nano mb-3" data-toggle="modal" data-target="#modalForm" data-form="publicacao" data-acao="publicacao">Adicionar</button>
                     <div id="publicacao-container">
                         <table class="table">
                             <thead>
@@ -343,13 +343,13 @@
                                         <td><?= $publicacao->titulo ?></td>
                                         <td><?= $publicacao->descricao ?></td>
                                         <td><?= bd2br($publicacao->data_publicacao) ?></td>
-                                        <td><button type="button"  data-action="publicacao" class="btn btn-danger btn-sm delete-publicacao"><i class="fa fa-trash"></i></button></td>
+                                        <td><button type="button"  data-action="publicacao" class="btn btn-nano btn-sm delete-publicacao"><i class="fa fa-trash"></i></button></td>
                                     <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
-                    <button type="button" class="btn btn-secondary previous-step" data-prev="step-9">Anterior</button>
-                    <button type="button" class="btn btn-primary next-step" data-next="step-11">Próximo</button>
+                    <button type="button" class="btn btn-nano previous-step" data-prev="step-9">Anterior</button>
+                    <button type="button" class="btn btn-nano next-step" data-next="step-11">Próximo</button>
                 </div>
 
             </div>
@@ -372,8 +372,8 @@
                     <!-- Form Dinâmico -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-primary">Adicionar</button>
+                    <button type="button" class="btn btn-nano" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-nano">Adicionar</button>
                 </div>
             </form>
         </div>

@@ -12,7 +12,7 @@
             <div class="col-md-12 mb-3">
                 <select class="form-control" id="parentescoFamiliar" name="parentesco" required>
                     <option value="" disabled selected>Selecione o parentesco</option>
-                    <option value="Cônjuge">Cônjuge</option>
+                    <option value="Cônjuge">Cônjuge(Esposa/Marido)</option>
                     <option value="Pai">Pai</option>
                     <option value="Mãe">Mãe</option>
                     <option value="Irmão">Irmão</option>
@@ -30,7 +30,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 mb-3">
-                <button type="submit" class="btn btn-primary">Adicionar Familiar</button>
+                <button type="submit" class="btn btn-nano">Adicionar Familiar</button>
             </div>
         </div>
     </form>
@@ -65,7 +65,7 @@
                                 <td>${familiar.nome}</td>
                                 <td>${familiar.parentesco}</td>
                                 <td>
-                                    <button class="btn btn-danger btn-sm delete-familiar" data-id="${familiar.id}">Excluir</button>
+                                    <button class="btn btn-nano btn-sm delete-familiar" data-id="${familiar.id}"><i class="fa fa-trash"></i></button>
                                 </td>
                             </tr>
                         `;
