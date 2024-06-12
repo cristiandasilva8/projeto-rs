@@ -35,6 +35,15 @@ class CreateAdminUsuarios extends Migration
                 'constraint' => '255',
                 'null' => false
             ],
+            'descricao' => [
+                'type' => 'TEXT',
+                'null' => true
+            ],
+            'nome_responsavel' => [
+                'type' => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true
+            ],
             'endereco_completo' => [
                 'type' => 'VARCHAR',
                 'constraint' => '255',

@@ -3,12 +3,12 @@
 <main>
     <!-- Hero Area Start -->
     <div class="slider-area ">
-        <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="assets/img/hero/about.jpg">
+        <div class="single-slider section-overly slider-height2 d-flex align-items-center" data-background="<?= base_url('assets/img/hero/about.jpg'); ?>">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="hero-cap text-center">
-                            <h2>Get your job</h2>
+                            <h2>Descubra a vaga perfeita para você</h2>
                         </div>
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                                         <path fill-rule="evenodd" fill="rgb(27, 207, 107)" d="M7.778,12.000 L12.222,12.000 L12.222,10.000 L7.778,10.000 L7.778,12.000 ZM-0.000,-0.000 L-0.000,2.000 L20.000,2.000 L20.000,-0.000 L-0.000,-0.000 ZM3.333,7.000 L16.667,7.000 L16.667,5.000 L3.333,5.000 L3.333,7.000 Z" />
                                     </svg>
                                 </div>
-                                <h4>Filter Jobs</h4>
+                                <h4>Filtrar Vagas</h4>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                                 <!--  Select job items End-->
                             </div>
 
-                            <button type="submit" class="btn btn-primary mt-4">Buscar</button>
+                            <button type="submit" class="btn mt-4">Buscar</button>
                         </form>
                         <!-- Keeping existing categories and styling -->
                         <!-- single one -->
@@ -103,7 +103,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="count-job mb-35">
-                                        <span id="job-count">0 Jobs found</span>
+                                        <span id="job-count">0 Vagas encontradas</span>
                                     </div>
                                 </div>
                             </div>

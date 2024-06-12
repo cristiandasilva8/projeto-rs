@@ -3,15 +3,27 @@
 namespace App\Controllers\Imoveis;
 
 use App\Controllers\BaseController;
+use App\Models\Admin\AdminModel;
 use App\Models\ImoveisModel;
+use App\Models\TipoPropriedadeModel;
 
 class ImoveisController extends BaseController
 {
+    protected $vagasModel;
+    protected $adminModel;
+    protected $imoveisModel;
+    protected $tipoPropriedadesModel;
+    
+    public function __construct()
+    {
+        $this->adminModel = new AdminModel();
+        $this->imoveisModel = new ImoveisModel();
+        $this->tipoPropriedadesModel = new TipoPropriedadeModel();
+    }
 
     public function listarImoveis()
     {
-        $imoveisModel = new ImoveisModel();
-        $data = $imoveisModel->getImoveis();
+        $data = $this->imoveisModel->getImoveis();
 
         return $this->response->setJSON([
             "draw" => intval($this->request->getPost('draw')),
@@ -23,45 +35,29 @@ class ImoveisController extends BaseController
 
     public function detalhes($id)
     {
-        $imoveisModel = new ImoveisModel();
-
-        $detalhes = $imoveisModel->find($id);
-
-        //var_dump($detalhes);
-
-        return view('vagas/detalhes', compact('detalhes'));
+        $detalhes = $this->imoveisModel->getImovelComEmpresa($id);
+        return view('imoveis/detalhes', compact('detalhes'));
     }
 
+    public function procurar()
+    {
+        $imobiliarias = $this->adminModel->where('id_grupo', 3)->findAll();
+        $imoveis = $this->imoveisModel->getUltimosImoveisComEmpresa();  
+        $tipoPropriedades = $this->tipoPropriedadesModel->findAll();
+        $cidades = $this->imoveisModel->getCidades();
+        $imobiliarias = $this->adminModel->where('id_grupo', 3)->findAll();
+        
+        return view('imoveis/procurar_imoveis', compact('tipoPropriedades', 'imoveis', 'cidades', 'imobiliarias'));
+    }
 
     public function procurarImoveis()
     {
-        $imoveisModel = new ImoveisModel();
-   
-        $termoDeBusca = $this->request->getGetPost('termo');
-        $precoMin = $this->request->getGetPost('preco_min');
-        $precoMax = $this->request->getGetPost('preco_max');
-
-
-        // Filtro por nome parcial
-        if (!empty($termoDeBusca)) {
-            $imoveisModel->like('nome', $termoDeBusca);
-        }
-
-        // Filtro por intervalo de salário
-        if (!empty($precoMin)) {
-            $imoveisModel->where('preco >=', $precoMin);
-        }
-        if (!empty($precoMax)) {
-            $imoveisModel->where('preco <=', $precoMax);
-        }
-
-        $imoveis = $imoveisModel->findAll();
-
+        $imoveis = $this->imoveisModel->findAllComImobiliaria($this->request->getGetPost());
         // Verifica se a requisição é AJAX
         if ($this->request->isAJAX()) {
             return $this->response->setJSON($imoveis);
         } else {
-            return view('vagas/procurar_vagas', compact('vagas', 'categorias'));
+            return view('imoveis/procurar_imoveis', compact('imoveis'));
         }
     }
 }

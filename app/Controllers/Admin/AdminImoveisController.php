@@ -6,15 +6,18 @@ use App\Controllers\BaseController;
 use App\Models\Admin\AdminModel;
 use App\Models\ImoveisModel;
 use App\Models\ImovelImagemModel;
+use App\Models\TipoPropriedadeModel;
 use App\Services\ImageService;
 
 
 class AdminImoveisController extends BaseController
 {
     protected $imageService;
+    protected $tipoPropriedadeModel;
     public function __construct()
     {
         $this->imageService = new ImageService();
+        $this->tipoPropriedadeModel = new TipoPropriedadeModel();
     }
 
     public function listarImoveis()
@@ -38,11 +41,12 @@ class AdminImoveisController extends BaseController
             return redirect()->back()->with('error', 'Você não tem permissão para essa funcionalidade.');
         }
         $adminModel = new AdminModel();
+        
 
         if ($this->request->getGetPost()) {
 
             $imovel = $this->request->getGetPost();
-
+           
             // Tratamento da foto destaque
             $imgCarregada = $this->upload();
             if ($imgCarregada != '') {
@@ -59,6 +63,7 @@ class AdminImoveisController extends BaseController
 
         $dados = [
             'empresas' => $adminModel->where('id_grupo', 3)->findAll(),
+            'tipo_propriedades' => $this->tipoPropriedadeModel->findAll(),
             'title' => 'Cadastrar imóvel',
             'jsFiles' => [
                 base_url('assets/admin/js/imoveis.js')
@@ -107,6 +112,7 @@ class AdminImoveisController extends BaseController
         return view('admin/imoveis/cadastrar_editar', [
             'empresas' => $adminModel->where('id_grupo', 3)->findAll(),
             'imagens' => $imovelImagem,
+            'tipo_propriedades' => $this->tipoPropriedadeModel->findAll(),
             'uploadUrl' => base_url("admin/imovel/uploadImages/{$id}"),
             'deleteUploadUrl' => base_url("admin/imovel/deleteImage/"),
             'title' => 'Alterar imóvel',

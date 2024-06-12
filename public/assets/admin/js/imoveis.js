@@ -238,13 +238,4 @@ $(document).ready(function () {
       });
     }
   }
-  $(function () {
-    // Summernote
-    $("#summernote").summernote({
-      height: 250,
-      codemirror: {
-        theme: "monokai",
-      },
-    });
-  });
 });

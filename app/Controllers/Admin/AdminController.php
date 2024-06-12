@@ -20,19 +20,6 @@ class AdminController extends BaseController
     public function __construct()
     {
         $this->email = \Config\Services::email();
-
-        $this->configEmail = [
-            'protocol' => 'smtp',
-            'SMTPHost' => 'mail.soulclinic.app.br',
-            'SMTPUser' => 'noreplay@soulclinic.app.br',
-            'SMTPPass' => '123qweasd',
-            'SMTPPort' => 587,
-            'SMTPCrypto' => 'tls',
-            'charset' => 'UTF-8',
-            'mailType' => 'html',  // Se você estiver enviando HTML
-            'newline' => "\r\n",   // Pode ser necessário dependendo do servidor SMTP
-        ];
-        $this->email->initialize($this->configEmail);
     }
 
     public function index()
@@ -221,8 +208,6 @@ class AdminController extends BaseController
         return view('admin/recuperar_senha');
     }
 
-    
-
     public function candidatos($vagaId)
     {
         $model = new CandidatoVagasModel();
@@ -253,6 +238,8 @@ class AdminController extends BaseController
                 'celular' => $this->request->getPost('celular'),
                 'cpf_cnpj' => $this->request->getPost('cpf_cnpj'),
                 'creci' => ($this->request->getPost('creci')) ? $this->request->getPost('creci') : NULL,
+                'descricao' => ($this->request->getPost('descricao')) ? $this->request->getPost('descricao') : NULL,
+                'nome_responsavel' => ($this->request->getPost('nome_responsavel')) ? $this->request->getPost('nome_responsavel') : NULL,
             ];
 
             // Processamento de upload de imagem
@@ -331,7 +318,7 @@ class AdminController extends BaseController
     private function enviarEmailComNovaSenha($email, $novaSenha)
     {
 
-        $this->email->setFrom('noreplay@soulclinic.app.br', 'Não Responda');
+        $this->email->setFrom(ADMIN_EMAIL, SITE_NAME);
         $this->email->setTo($email);
         $this->email->setSubject('Recuperação de Senha');
         $this->email->setMessage('Sua nova senha é: ' . $novaSenha);

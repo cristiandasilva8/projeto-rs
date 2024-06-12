@@ -1,0 +1,14 @@
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background-color: #e0e0e0 !important;
+}
+.container-perfil{
+    margin-bottom: 17em !important;
+}
+
+.btn-nano {
+    padding: 18px 25px !important;
+}
+
+.btn-nano[class*="delete-"]{
+    border-radius: 5px;
+}

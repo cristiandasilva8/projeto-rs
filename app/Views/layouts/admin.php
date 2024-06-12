@@ -28,12 +28,13 @@
     <link rel="stylesheet" href="<?= base_url('/assets/admin/plugins/summernote/summernote-bs4.min.css') ?>">
     <!-- dropzonejs -->
     <link rel="stylesheet" href="<?= base_url('/assets/admin/plugins/dropzone/min/dropzone.min.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('/assets/admin/css/custom.css') ?>">
 
     <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 
@@ -261,6 +262,9 @@
             $('.moeda').mask('#.##0,00', {
                 reverse: true
             });
+
+            $('.area').mask('000.000.000,00 m²', {reverse: true});
+
             // Função para preencher endereço ao digitar o CEP
             function preencheEndereco(cep) {
                 // Limpa o formulário de endereço
@@ -323,6 +327,15 @@
                         alert("Formato de CEP inválido.");
                     }
                 }
+            });
+        });
+        $(function () {
+            // Summernote
+            $(".summernote").summernote({
+            height: 250,
+            codemirror: {
+                theme: "monokai",
+            },
             });
         });
     </script>

@@ -20,11 +20,10 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Localização</th>
+                <th>Cidade</th>
                 <th>Setor</th>
                 <th>Quantidade</th>
                 <th>Salário</th>
-                <th>Descrição</th>
                 <th>Tipo</th>
                 <th>Ações</th>
             </tr>
@@ -36,17 +35,41 @@
 </div>
 
 <!-- Modal para Candidatos -->
+<!-- Modal para exibir candidatos -->
 <div class="modal fade" id="candidatesModal" tabindex="-1" role="dialog" aria-labelledby="candidatesModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="candidatesModalLabel">Candidatos da Vaga</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <h5 class="modal-title" id="candidatesModalLabel">Candidatos para a Vaga</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <!-- Conteúdo do modal será inserido aqui -->
+        <div class="list-group" id="candidatesList" style="max-height: 400px; overflow-y: auto;">
+          <!-- Conteúdo dos candidatos será carregado aqui -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary send-email">Enviar Email para Selecionados</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para exibir o currículo -->
+<div class="modal fade" id="curriculoModal" tabindex="-1" role="dialog" aria-labelledby="curriculoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="curriculoModalLabel">Currículo do Candidato</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Conteúdo do currículo será carregado aqui -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -54,5 +77,7 @@
     </div>
   </div>
 </div>
+
+
 
 <?= $this->endsection(); ?>
