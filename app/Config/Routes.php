@@ -18,7 +18,7 @@ $routes->group('vagas', function ($routes) {
     $routes->post('candidatar/(:num)', 'vagas\VagasController::candidatar/$1', ['as' => 'vaga.candidatar']);
     $routes->post('listar', 'vagas\VagasController::listarVagas', ['as' => 'vaga.listar']);
     // Procurar Vagas
-    $routes->match(['get', 'post'], 'procurar-vagas', 'vagas/VagasController::procurarVagas', ['as' => 'procurar.vagas']);
+    $routes->match(['get', 'post'], 'procurar-vagas', '\App\Controllers\Vagas\VagasController::procurarVagas', ['as' => 'procurar.vagas']);
 });
 
 $routes->group('imoveis', function ($routes) {
