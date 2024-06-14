@@ -14,9 +14,9 @@ service('auth')->routes($routes);
 
 $routes->group('vagas', function ($routes) {
     // vagas
-    $routes->get('detalhes/(:num)', 'vagas\VagasController::detalhes/$1', ['as' => 'vaga.detalhes']);
-    $routes->post('candidatar/(:num)', 'vagas\VagasController::candidatar/$1', ['as' => 'vaga.candidatar']);
-    $routes->post('listar', 'vagas\VagasController::listarVagas', ['as' => 'vaga.listar']);
+    $routes->get('detalhes/(:num)', '\App\Controllers\Vagas\VagasController::detalhes/$1', ['as' => 'vaga.detalhes']);
+    $routes->post('candidatar/(:num)', '\App\Controllers\Vagas\VagasController::candidatar/$1', ['as' => 'vaga.candidatar']);
+    $routes->post('listar', '\App\Controllers\Vagas\VagasController::listarVagas', ['as' => 'vaga.listar']);
     // Procurar Vagas
     $routes->match(['get', 'post'], 'procurar-vagas', '\App\Controllers\Vagas\VagasController::procurarVagas', ['as' => 'procurar.vagas']);
 });
@@ -24,26 +24,26 @@ $routes->group('vagas', function ($routes) {
 $routes->group('imoveis', function ($routes) {
     // Imoveis
     $routes->get('/', 'Home::imoveis', ['as' => 'imoveis.index']);
-    $routes->get('detalhes/(:num)', 'imoveis\ImoveisController::detalhes/$1', ['as' => 'imovel.detalhes']);
-    $routes->post('listar', 'imoveis\ImoveisController::listarImoveis', ['as' => 'imovel.listar']);
-    $routes->get('procurar', 'imoveis\ImoveisController::procurar', ['as' => 'imovel.procurar']);
+    $routes->get('detalhes/(:num)', '\App\Controllers\imoveis\ImoveisController::detalhes/$1', ['as' => 'imovel.detalhes']);
+    $routes->post('listar', '\App\Controllers\imoveis\ImoveisController::listarImoveis', ['as' => 'imovel.listar']);
+    $routes->get('procurar', '\App\Controllers\imoveis\ImoveisController::procurar', ['as' => 'imovel.procurar']);
 
     // Procurar Imoveis
-    $routes->match(['get', 'post'], 'procurar-imoveis', 'imoveis\ImoveisController::procurarImoveis', ['as' => 'procurar.imoveis']);
+    $routes->match(['get', 'post'], 'procurar-imoveis', '\App\Controllers\imoveis\ImoveisController::procurarImoveis', ['as' => 'procurar.imoveis']);
 });
 
 $routes->group('usuario', function ($routes) {
     // trabalhador
-    $routes->get('perfil', 'usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
-    $routes->get('familiares', 'usuarios\UserController::familiares', ['as' => 'usuario.familiares']);
-    $routes->post('adicionar_informacao/(:segment)', 'usuarios\UserController::adicionarInformacao/$1');
-    $routes->post('salvar_informacoes_pessoais', 'usuarios\UserController::salvarInformacoesPessoais');
-    $routes->post('salvar_objetivo_profissional', 'usuarios\UserController::salvarObjetivoProfissional');
-    $routes->post('excluir_informacao/(:any)/(:num)', 'usuarios\UserController::excluirInformacao/$1/$2');
+    $routes->get('perfil', '\App\Controllers\Usuarios\UserController::perfil', ['as' => 'usuario.perfil']);
+    $routes->get('familiares', '\App\Controllers\Usuarios\UserController::familiares', ['as' => 'usuario.familiares']);
+    $routes->post('adicionar_informacao/(:segment)', '\App\Controllers\Usuarios\UserController::adicionarInformacao/$1');
+    $routes->post('salvar_informacoes_pessoais', '\App\Controllers\Usuarios\UserController::salvarInformacoesPessoais');
+    $routes->post('salvar_objetivo_profissional', '\App\Controllers\Usuarios\UserController::salvarObjetivoProfissional');
+    $routes->post('excluir_informacao/(:any)/(:num)', '\App\Controllers\Usuarios\UserController::excluirInformacao/$1/$2');
 
-    $routes->post('add_familiar', 'usuarios\UserController::addFamiliar');
-    $routes->get('get_familiares', 'usuarios\UserController::getFamiliares');
-    $routes->delete('delete_familiar/(:num)', 'usuarios\UserController::deleteFamiliar/$1');
+    $routes->post('add_familiar', '\App\Controllers\Usuarios\UserController::addFamiliar');
+    $routes->get('get_familiares', '\App\Controllers\Usuarios\UserController::getFamiliares');
+    $routes->delete('delete_familiar/(:num)', '\App\Controllers\Usuarios\UserController::deleteFamiliar/$1');
 });
 
 // Panel Admin
